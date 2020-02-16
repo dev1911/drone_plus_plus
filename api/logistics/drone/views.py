@@ -18,7 +18,7 @@ from .serializers import *
 def get_user_token(request):
     # checking whether the user token is there in request
     try:
-        user_token = request.data['user_token']
+        user_token = request.META['HTTP_USER_TOKEN']
     except:
         # if there is no user token, it is a bad request
         print("User token not found in the request.")
@@ -59,7 +59,7 @@ def create_drone(request):
         # check is request has warehouse for the drone
         warehouse = request.data['warehouse']
         # get id of the warehouse
-        warehouse_id = Warehouse.objects.filter(name=warehouse)
+        warehouse_id = Warehouse.objects.get(name=warehouse)
         if not warehouse_id:
         # if the warehouse does not exist
             return Response({"error": invalid_warehouse}, status=status.HTTP_400_BAD_REQUEST)
@@ -74,7 +74,7 @@ def create_drone(request):
     if warehouse_id:
         drone.warehouse = warehouse_id
     drone.save()
-    return Response({"success":"Drone created."}, status=status.HTTP_201_CREATED)
+    return Response({"success": drone_created}, status=status.HTTP_201_CREATED)
 
 
 # /drone/list
@@ -104,7 +104,7 @@ def info_drone(request):
         return Response({"error": invalid_user_token}, status=status.HTTP_400_BAD_REQUEST)
     # getting the drone
     try:
-        drone_id = request.data['drone_id']
+        drone_id = request.query_params['drone_id']
     except:
         # no drone_id in request
         return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
@@ -130,7 +130,7 @@ def current_battery_drone(request):
     if user_id is None:
         return Response({"error": invalid_user_token}, status=status.HTTP_400_BAD_REQUEST)
     try:
-        drone_id = request.data['drone_id']
+        drone_id = request.query_params['drone_id']
     except:
         return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
     drone = Drone.objects.get(id=drone_id)
@@ -172,7 +172,7 @@ def change_status(request):
     except:
         pass
     drone.save()
-    return Response({"success":"Drone status updated successfully."}, status=status.HTTP_200_OK)
+    return Response({"success": status_updated}, status=status.HTTP_200_OK)
 
 @api_view(['PATCH'])
 @permission_classes((AllowAny,))
@@ -199,4 +199,4 @@ def change_location(request):
     except:
         return Response({"error": lat_long_missing}, status=status.HTTP_400_BAD_REQUEST)
     drone.save()
-    return Response({"success": "Drone status updated successfully."}, status=status.HTTP_200_OK)
+    return Response({"success": status_updated}, status=status.HTTP_200_OK)
