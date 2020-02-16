@@ -174,3 +174,36 @@ class ChangeStatusDroneTesr(APITestCase):
         response = self.client.patch(url, data, format='json', **header)
         self.assertEqual(json.loads(response.content), {"error":no_drone_status})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class ChangeLocationDroneTest(APITestCase):
+
+    ############################
+    # CHANGE LOCATION OF DRONE #
+    ############################
+
+    def setUp(self):
+        self.drone_a = Drone.objects.create(owner="admin", battery=5.0, status="Delivering",curr_latitude=18.9771, curr_longitude=72.8342)
+        self.drone_b = Drone.objects.create(owner="admin", battery=5.0, status="Idle",curr_latitude=18.9771, curr_longitude=72.8342)
+
+    # sucesss tests
+    def test_change_location_0(self):
+        """
+        Ensures that the location of drone can be changed
+        """
+        url = reverse('change_location')
+        data = {'drone_id':1, 'latitude': 18.9772, 'longitude':72.8341}
+        response = self.client.patch(url, data, **header)
+        self.assertEqual(json.loads(response.content), {"success":status_updated})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    # failure tests
+    def test_change_location_1(self):
+        """
+        Failure when tried to change location of Idle drone
+        """
+        url = reverse('change_location')
+        data = {'drone_id': 2, 'latitude': 18.9772, 'longitude': 72.8341}
+        response = self.client.patch(url, data, **header)
+        self.assertEqual(json.loads(response.content), {"error": failed_upadte_location})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

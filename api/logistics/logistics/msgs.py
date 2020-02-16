@@ -7,6 +7,7 @@ invalid_drone_id = "Invalid Drone ID was passed in request"
 no_drone_status = "No status parameter passed in request"
 invalid_status_choice = "Invalid Drone Status was passed in request"
 lat_long_missing = "Latitude and Longitude both should be passed to update the location."
+failed_upadte_location = "Failed to update the location of the drone"
 
 drone_status = ["Idle", "Charging", "Delivering", "Returning", "Offline"]
 drone_created = "Drone is created"
