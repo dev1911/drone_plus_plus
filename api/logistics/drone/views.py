@@ -87,8 +87,26 @@ def list_drones(request):
         return Response({"error": no_user_token}, status=status.HTTP_400_BAD_REQUEST)
     # call user API to get user-id from user_token
     user_id = authenticate_user_token(user_token)
-    # TODO: list down the drones based on parameters
-
+    # checking parameters one by one
+    drones = Drone.objects.all()
+    if 'battery' in request.query_params:
+        drones = drones.filter(battery=request.query_params['battery'])
+    if 'battery_lte' in request.query_params:
+        drones = drones.filter(battery__lte=request.query_params['battery_lte'])
+    if 'battery_gte' in request.query_params:
+        drones = drones.filter(battery__gte=request.query_params['battery_gte'])
+    if 'warehouse' in request.query_params:
+        warehouse = Warehouse.objects.get(name=request.query_params['warehouse'])
+        if warehouse:
+            drones = drones.filter(warehouse=warehouse.id)
+        else:
+            return Response({"error":invalid_warehouse},status=status.HTTP_400_BAD_REQUEST)
+    if 'status' in request.query_params:
+        if request.query_params['status'] in drone_status:
+            drones = drones.filter(status=request.query_params['status'])
+        else:
+            return Response({"error":invalid_status_choice}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(DroneSerializer(drones, many=True).data, status=status.HTTP_200_OK)
 
 # /drone/info
 @api_view(['GET'])
@@ -192,6 +210,8 @@ def change_location(request):
     drone = Drone.objects.get(id=drone_id)
     if not drone:
         return Response({"error": invalid_drone_id}, status=status.HTTP_400_BAD_REQUEST)
+    if drone.status not in ["Delivering", "Returning"]:
+        return Response({"error": failed_upadte_location}, status=status.HTTP_400_BAD_REQUEST)
     try:
         if request.data['latitude'] and request.data['longitude']:
             drone.curr_latitude = request.data['latitude']
