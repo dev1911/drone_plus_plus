@@ -1,0 +1,1 @@
+uname_pass = "Request needs both username and password!"
