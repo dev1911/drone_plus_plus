@@ -15,6 +15,17 @@ from .serializers import *
 
 # reusable functions
 
+def authenticate_api_token(reqeust):
+    # checking that this request is from API service
+    try:
+        token = reqeust.META['HTTP_API_TOKEN']
+    except:
+        return False
+    if token == TOKEN:
+        return  True
+    else:
+        return False
+
 def get_user_token(request):
     # checking whether the user token is there in request
     try:
@@ -40,6 +51,8 @@ def authenticate_user_token(user_token):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def create_drone(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -81,6 +94,8 @@ def create_drone(request):
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def list_drones(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -112,6 +127,8 @@ def list_drones(request):
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def info_drone(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -139,6 +156,8 @@ def info_drone(request):
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def current_battery_drone(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -161,6 +180,8 @@ def current_battery_drone(request):
 @api_view(['PATCH'])
 @permission_classes((AllowAny,))
 def change_status(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -195,6 +216,8 @@ def change_status(request):
 @api_view(['PATCH'])
 @permission_classes((AllowAny,))
 def change_location(request):
+    if not authenticate_api_token(request):
+        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:

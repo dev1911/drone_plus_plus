@@ -9,7 +9,7 @@ from logistics.msgs import *
 from drone.serializers import *
 # Create your tests here.
 
-header = {"HTTP_USER_TOKEN": "admin"}
+header = {"HTTP_USER_TOKEN": "admin", "HTTP_API_TOKEN":"this_is_token"}
 
 class CreateDroneTest(APITestCase):
 
@@ -59,9 +59,9 @@ class CreateDroneTest(APITestCase):
         url = reverse('create_drone')
         data = {"battery":"5.0"}
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(Drone.objects.count(), 0)
-        self.assertEqual(json.loads(response.content), {"error": no_user_token})
+        self.assertEqual(json.loads(response.content), {"error": unauthorised})
 
 
 class InfoDroneTest(APITestCase):
