@@ -1,0 +1,50 @@
+form{
+  padding:10px;
+}
+
+#login-text{
+  color: #149ef0;
+  margin-bottom:0px;
+  margin-top:5px;
+  padding-left: 19px;
+}
+
+
+.submit-btn{
+  margin-top:10px;
+  width: 125px;
+  height: 35px;
+  background-color: #149ef0;
+  color: white;
+  outline: none;
+  box-shadow: none;
+  border-style: none;
+  transition: all 0.1s ease-in-out;
+}
+
+.submit-btn:hover{
+  background-color:#44b2f5;
+}
+
+.error-div{
+  margin-top:3px;
+  margin-left:10px;
+  margin-bottom: 15px;
+  width:auto;
+  height: 3px;
+}
+
+.error{
+  font-size: small;
+  color:#cc0000;
+}
+
+p{
+  font-size: medium;
+}
+
+.links{
+  font-size: medium;
+  color:#149ef0;
+  text-decoration: none;
+}
