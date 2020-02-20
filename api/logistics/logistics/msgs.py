@@ -1,3 +1,5 @@
+TOKEN = "this_is_token"
+unauthorised = "Not authorised to access this service"
 no_user_token = "User token not found in the header."
 invalid_user_token = "Invalid user token found in the request"
 no_battery = "Battery not found in the request."
