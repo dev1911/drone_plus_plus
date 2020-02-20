@@ -15,7 +15,7 @@ header = {"HTTP_API_TOKEN" : API_TOKEN}
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def login(request):
-    response = requests.post(user_service + "login/", data=request.data, headers=header)
+    response = requests.post(user_service + "accounts/login/", data=request.data, headers=header)
     return Response(response, status=response.status_code)
 
 # /register
@@ -24,3 +24,8 @@ def login(request):
 def register(request):
     response = requests.post(user_service+"/register", data=request.urls, headers=header)
     return Response(response, status=response.status_code)
+
+@api_view([])
+@permission_classes((AllowAny,))
+def a():
+    pass
