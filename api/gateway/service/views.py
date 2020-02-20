@@ -6,16 +6,21 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from service.urls import user_service, logistic_service, order_service
+from gateway.msgs import *
 # Create your views here.
 
+header = {"HTTP_API_TOKEN" : API_TOKEN}
 
 # /login
 @api_view(['POST'])
 @permission_classes((AllowAny,))
-def login():
-    try:
-        data = {'username':requests.data['username'], 'password':requests.data['password']}
-    except:
-        return Response()
-    response = requests.post(user_service, data=data)
+def login(request):
+    response = requests.post(user_service + "login/", data=request.data, headers=header)
+    return Response(response, status=response.status_code)
+
+# /register
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def register(request):
+    response = requests.post(user_service+"/register", data=request.urls, headers=header)
+    return Response(response, status=response.status_code)
