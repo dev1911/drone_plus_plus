@@ -1,4 +1,4 @@
-<div>
+<div id="login">
   <p id="login-text"><b>LOG IN</b></p>
   <form id="login-form">
     <div class="float-container">
@@ -10,7 +10,7 @@
       <input id = "passwordField-login" [(ngModel)]="login.password" class="float-field" type="password" name="passwordField" #passwordField required>
     </div>
     <div class="error-div"><span class="error">{{subError}}</span></div>
-    <button class="submit-btn" (click)="loginUser(login.username,login.password)" ><b>LOG IN</b></button>
+    <button class="submit-btn" (click)="loginUser()" ><b>LOG IN</b></button>
     <p>New here? <a href="register" class="links">Register</a> yourself for fast deliveries!</p>
   </form>
 </div>

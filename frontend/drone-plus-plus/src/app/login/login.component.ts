@@ -19,13 +19,17 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    this.loginService.loginNewUser(this.login).subscribe(
-      response => {
-        alert('User ' + this.login.username + ' has been logged!' );
-      },
-      error => console.log('error', error)
+    this.loginService.loginNewUser(this.login).subscribe(data => {
+      console.log('success');
+      localStorage.setItem('user-token', data['token']);
+      this.subError = '';
+      // TODO: redirect user to home
+    },
+    error => {
+      console.log('error', error);
+      this.subError = 'Invalid Credentials. Please try again!';
+    }
     );
-    // TODO: set token in local storage/cookies
   }
 
 }
