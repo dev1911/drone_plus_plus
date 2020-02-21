@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from './register.service';
+// import { userInfo } from 'os';
 
 @Component({
   selector: 'app-register',
@@ -6,19 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  pass: string;
-  pass2: string;
-  username: string;
+  register;
+  // password: string;
+  // password2: string;
+  // username: string;
   subError: string;
-  constructor() { }
+  providers: [RegisterService];
+  constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
+    this.register = {username: '', password: '', password2: '', token: '',};
+
   }
 
-  sub(username, pass, pass2) {
-    // TODO: call API for register and set token in local storage/cookies
-    console.log(username, pass, pass2);
+  registerUser() {
+    this.registerService.registerNewUser(this.register).subscribe(
+      response => {
+        alert('User ' + this.register.username + ' has been created!' );
+        alert('Token' + this.register.token);
+        // if (response && response.token) {
+        //   localStorage.setItem('token', response.token);
+        //   console.log("idhar aya");
+        //   console.log(response.token);
+        //  }
+      },
+      error => alert('error ' + error)
+    );
+    // TODO: set token in local storage/cookies
   }
 
 }
