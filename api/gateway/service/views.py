@@ -7,9 +7,11 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from gateway.msgs import *
+
 # Create your views here.
 
-header = {"HTTP_API_TOKEN" : API_TOKEN}
+header = {"HTTP_API_TOKEN": API_TOKEN}
+
 
 # /login
 @api_view(['POST'])
@@ -18,12 +20,14 @@ def login(request):
     response = requests.post(user_service + "accounts/login/", data=request.data, headers=header)
     return Response(response, status=response.status_code)
 
+
 # /register
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register(request):
-    response = requests.post(user_service+"/register", data=request.urls, headers=header)
+    response = requests.post(user_service + "/register", data=request.urls, headers=header)
     return Response(response, status=response.status_code)
+
 
 @api_view([])
 @permission_classes((AllowAny,))
