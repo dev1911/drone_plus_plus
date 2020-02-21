@@ -3,14 +3,14 @@
   <form id="login-form">
     <div class="float-container">
       <label for="usernameField-login">Username</label>
-      <input id = "usernameField-login" [(ngModel)]="username" class="float-field" type="text" name="usernameField" #usernameField required>
+      <input id = "usernameField-login" [(ngModel)]="login.username" class="float-field" type="text" name="usernameField" #usernameField required>
     </div>
     <div class="float-container">
       <label for="passwordField-login">Password</label>
-      <input id = "passwordField-login" [(ngModel)]="pass" class="float-field" type="password" name="passwordField" #passwordField required>
+      <input id = "passwordField-login" [(ngModel)]="login.password" class="float-field" type="password" name="passwordField" #passwordField required>
     </div>
     <div class="error-div"><span class="error">{{subError}}</span></div>
-    <button class="submit-btn" (click)="sub(username, pass)" ><b>LOG IN</b></button>
+    <button class="submit-btn" (click)="loginUser(login.username,login.password)" ><b>LOG IN</b></button>
     <p>New here? <a href="register" class="links">Register</a> yourself for fast deliveries!</p>
   </form>
 </div>
