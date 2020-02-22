@@ -1,11 +1,25 @@
-<header>
 
-<!--  <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
-
-  <div class="main-header">
-    <img src="/assets/img/logo.svg" class="logo">
-  </div>
-  <div class="sub-header">
-
-  </div>
-</header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<img src="/assets/img/logo.svg" class="logo">
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="">home</a>
+    </li>
+    <div *ngIf="!userPresent;else userProfileBlock">
+      <li class="nav-item float-right">
+        <a class="nav-link " routerLink="register" >Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="login" >Login</a>
+      </li>
+    </div>
+    <ng-template #userProfileBlock>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="" (click)="logout()">Logout</a>
+      </li>
+    </ng-template>
+  </ul>
+</div>
+</nav>
+<router-outlet></router-outlet>

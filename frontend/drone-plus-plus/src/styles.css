@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 .float-container {
   border : 1px solid white  ;
   padding: 0 8px;
@@ -30,3 +32,6 @@ label {
 .float-container.active label {
   transform: translate(0, 4px) scale(.75);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
