@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64899f7d-d9e7-4a69-906a-9cf0872b3c16" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/gateway/routing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/consumers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/routing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/msgs.py" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/msgs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/service/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/service/consumers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/service/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../logistics/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../logistics/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +118,7 @@
       <option name="presentableId" value="Default" />
       <updated>1582179356179</updated>
       <workItem from="1582353771077" duration="11068000" />
+      <workItem from="1582367411851" duration="656000" />
     </task>
     <servers />
   </component>

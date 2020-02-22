@@ -25,9 +25,19 @@ def login(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def register(request):
-    response = requests.post(user_service + "/register", data=request.urls, headers=header)
+    response = requests.post(user_service + "accounts/register", data=request.data, headers=header)
     return response
 
-
+# /my-orders
+@api_view(['GET'])
+@permission_classes((AllowAny,))
+def my_orders(request):
+    try:
+        response = requests.post(user_service+"accounts/user_id", data=request.data, headers=header+{"HTTP_USER_TOKEN": request.META['HTTP_USER_TOKEN']})
+    except:
+        return Response({"error": token_error}, status=status.HTTP_401_UNAUTHORIZED)
+    if response.status_code == status.HTTP_200_OK:
+        pass
+    
 def drone(request, drone_id):
     return render( request, "index.html", {"drone_id": drone_id})
