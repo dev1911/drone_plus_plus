@@ -10,21 +10,26 @@ from drone.models import Drone
 from warehouse.models import Warehouse
 from logistics.msgs import *
 from .serializers import *
+
+import json
+import websocket
 # Create your views here.
 
 
 # reusable functions
 
-def authenticate_api_token(reqeust):
+
+def authenticate_api_token(request):
     # checking that this request is from API service
     try:
-        token = reqeust.META['HTTP_API_TOKEN']
+        token = request.META['HTTP_API_TOKEN']
     except:
         return False
     if token == TOKEN:
-        return  True
+        return True
     else:
         return False
+
 
 def get_user_token(request):
     # checking whether the user token is there in request
@@ -36,6 +41,7 @@ def get_user_token(request):
         return None
     return user_token
 
+
 def authenticate_user_token(user_token):
     # call User API to get user ID of the user_token
     try:
@@ -43,6 +49,24 @@ def authenticate_user_token(user_token):
     except:
         return None
     return user_token
+
+def notify_gateway(request, drone_id):
+    ws = websocket.create_connection(ws_url+"/drone/"+drone_id+"/track/")
+    data = {
+            'token': TOKEN,
+            'id': drone_id
+        }
+    try:
+        data += {'lat': request.data['latitude']}
+        data += {'long': request.data['longitude']}
+    except KeyError:
+        pass
+    try:
+        data += {'status': request.data['status']}
+    except KeyError:
+        pass
+    ws.send(json.dumps(data))
+    ws.close()
 
 
 # API functions/views
@@ -88,7 +112,6 @@ def create_drone(request):
         drone.warehouse = warehouse_id
     drone.save()
     return Response({"success": drone_created}, status=status.HTTP_201_CREATED)
-
 
 # /drone/list
 @api_view(['GET'])
@@ -211,6 +234,7 @@ def change_status(request):
     except:
         pass
     drone.save()
+    notify_gateway(request, drone_id)
     return Response({"success": status_updated}, status=status.HTTP_200_OK)
 
 @api_view(['PATCH'])
@@ -242,4 +266,5 @@ def change_location(request):
     except:
         return Response({"error": lat_long_missing}, status=status.HTTP_400_BAD_REQUEST)
     drone.save()
+    notify_gateway(request, drone_id)
     return Response({"success": status_updated}, status=status.HTTP_200_OK)

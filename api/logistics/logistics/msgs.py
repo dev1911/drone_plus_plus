@@ -14,3 +14,8 @@ failed_upadte_location = "Failed to update the location of the drone"
 drone_status = ["Idle", "Charging", "Delivering", "Returning", "Offline"]
 drone_created = "Drone is created"
 status_updated = "Drone status updated successfully."
+
+
+
+# urls
+ws_url = "ws://127.0.0.1:8000/ws"
