@@ -1,4 +1,4 @@
-API_TOKEN = "this_is_token"
+TOKEN = "this_is_token"
 
 user_service = "http://127.0.0.1:8001/"
 logistic_service = "http://127.0.0.1:8002/"

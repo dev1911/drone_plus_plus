@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'service',
+    'channels',
 ]
 
 REST_FRAMEWORK = {
@@ -75,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gateway.wsgi.application'
-
+ASGI_APPLICATION = 'gateway.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -87,6 +88,14 @@ DATABASES = {
     }
 }
 
+CHANNEL_LAYERS = {
+    "default": {
+        "CONFIG": {
+            "hosts": [('localhost','6379')],
+        },
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

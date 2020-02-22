@@ -10,7 +10,7 @@ from gateway.msgs import *
 
 # Create your views here.
 
-header = {"HTTP_API_TOKEN": API_TOKEN}
+header = {"HTTP_API_TOKEN": TOKEN}
 
 
 # /login
@@ -18,7 +18,7 @@ header = {"HTTP_API_TOKEN": API_TOKEN}
 @permission_classes((AllowAny,))
 def login(request):
     response = requests.post(user_service + "accounts/login/", data=request.data, headers=header)
-    return Response(response, status=response.status_code)
+    return response
 
 
 # /register
@@ -26,10 +26,8 @@ def login(request):
 @permission_classes((AllowAny,))
 def register(request):
     response = requests.post(user_service + "/register", data=request.urls, headers=header)
-    return Response(response, status=response.status_code)
+    return response
 
 
-@api_view([])
-@permission_classes((AllowAny,))
-def a():
-    pass
+def drone(request, drone_id):
+    return render( request, "index.html", {"drone_id": drone_id})
