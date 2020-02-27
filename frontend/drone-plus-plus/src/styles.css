@@ -1,3 +1,8 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
 .float-container {
   border : 1px solid white  ;
   padding: 0 8px;

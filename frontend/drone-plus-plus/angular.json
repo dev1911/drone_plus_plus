@@ -24,9 +24,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/sdk/map.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/sdk/tomtom.min.js"
+            ]
           },
           "configurations": {
             "production": {

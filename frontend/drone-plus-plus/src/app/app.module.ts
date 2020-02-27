@@ -8,12 +8,14 @@ import {FormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { MapComponent } from './map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
