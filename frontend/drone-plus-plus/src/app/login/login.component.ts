@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   // username: string;
   subError: string;
   providers: [LoginService];
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.login = {username: '', password: ''};
@@ -23,13 +23,16 @@ export class LoginComponent implements OnInit {
       console.log('success');
       localStorage.setItem('user-token', data['token']);
       this.subError = '';
-      // TODO: redirect user to home
+      this.router.navigate(['']);
     },
     error => {
       console.log('error', error);
       this.subError = 'Invalid Credentials. Please try again!';
     }
     );
+  }
+  logout() {
+    localStorage.removeItem('user-token');
   }
 
 }
