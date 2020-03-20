@@ -3,17 +3,18 @@
   margin: 100px auto 0;
   padding: 30px;
   border: 1px solid #ccc;
-  box-shadow: 5px 5px 5px -1px rgba(125,125,125,1);
+  /*box-shadow: 5px 5px 5px -1px rgba(125,125,125,1);*/
 }
 form{
   padding:10px;
 }
 
 #register-text{
-  color: #149ef0;
+  color: #777777;
   margin-bottom:0px;
   margin-top:5px;
   padding-left: 19px;
+  font-size: larger;
 }
 
 
@@ -21,8 +22,8 @@ form{
   margin-top:10px;
   width: 125px;
   height: 35px;
-  background-color: #149ef0;
-  color: white;
+  background-color: #dddddd;
+  color: #777777;
   outline: none;
   box-shadow: none;
   border-style: none;
@@ -30,7 +31,7 @@ form{
 }
 
 .submit-btn:hover{
-  background-color:#44b2f5;
+  background-color:#AAAAAA;
 }
 
 .error-div{
@@ -48,10 +49,11 @@ form{
 
 p{
   font-size: medium;
+  color: #777777;
 }
 
 .links{
   font-size: medium;
-  color:#149ef0;
+  color:#222222;
   text-decoration: none;
 }

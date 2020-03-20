@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NeworderComponent } from './neworder/neworder.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,8 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     FooterComponent,
     MapComponent,
+    SidebarComponent,
+    NeworderComponent,
   ],
   imports: [
     BrowserModule,

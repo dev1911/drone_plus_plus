@@ -1,0 +1,47 @@
+#new-order{
+  clear: both;
+  width: 70%;
+  margin: 0 auto;
+}
+
+h3, p{
+  color: #777777;
+  font-weight: normal;
+}
+
+.text{
+  clear: both;
+  font-size:small;
+  margin-top:10px;
+  float: left;
+  width: 200px;
+  /*height: 30px;*/
+}
+
+#lat, #long{
+  /*clear: both;*/
+  font-size:small;
+  margin-top:10px;
+  float: left;
+  width: 200px;
+  height: 30px;
+}
+
+.btn{
+  clear: both;
+  float: left;
+  outline: none;
+  height: 30px;
+  width: 100px;
+  background: #dddddd;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn:active{
+  border-style: outset;
+}
+
+.btn:hover{
+  background: #aaaaaa;
+}

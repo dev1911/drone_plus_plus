@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {LoginService} from '../login/login.service';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  userPresent: boolean ;
-  user = String;
-  constructor(private router: Router) {}
+  authenticated: boolean ;
+  user: string;
+  constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit() {
-    if (localStorage.getItem('user-token') != null){
-      this.userPresent = true;
+    if (localStorage.getItem('user-token') != null) {
+      this.authenticated = this.loginService.isLoggedIn();
+      if (this.authenticated) {
+        this.user = this.loginService.getUserInfo();
+      }
     }
   }
   logout() {

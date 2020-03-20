@@ -17,14 +17,21 @@ export class LoginService {
 
   isLoggedIn(): boolean {
     if (localStorage.getItem('user-token') != null) {
-        //  TODO: call API to validate the token
+        //  TODO: call API to validate the token and cache it for later requests
         return true;
     }
     return false;
   }
 
+  getUserInfo(): string {
+    // TODO: call API to get user name and cache it for later requests
+    const s = 'admin';
+    return s;
+  }
+
   logout() {
     localStorage.removeItem('user-token');
   }
+
 
 }

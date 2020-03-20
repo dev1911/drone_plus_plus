@@ -13,3 +13,17 @@ window.addEventListener("DOMContentLoaded",()=>{
     });
   }
 });
+
+function profileOptions(){
+  event.stopPropagation();
+  document.getElementById("profile-dropdown").classList.toggle("inactive");
+}
+
+window.onclick = function(event) {
+  try {
+    document.getElementById("profile-dropdown").classList.add("inactive");
+  } catch {
+
+  };
+
+}

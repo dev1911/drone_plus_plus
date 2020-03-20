@@ -1,25 +1,26 @@
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<img src="/assets/img/logo.svg" class="logo">
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="">home</a>
-    </li>
-    <div *ngIf="!userPresent;else userProfileBlock">
-      <li class="nav-item float-right">
-        <a class="nav-link " routerLink="register" >Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " routerLink="login" >Login</a>
-      </li>
+<header>
+  <div class="main-menu">
+    <img src="/assets/img/logo.svg" class="logo">
+    <ul class="menu">
+      <li class="tab"><a href="/">Home</a></li>
+      <li class="tab"><a href="/order/track">Track Order</a></li>
+      <li class="tab"><a href="/order/new">Place Order</a></li>
+    </ul>
+    <div class="profile" *ngIf="authenticated; else auth" onclick="profileOptions()">
+      <p id="username">{{user}}</p>
+      <img src="/assets/img/user.svg" id="profile-btn">
+      <img src="/assets/img/ddarrow.svg" class="profile-arrow">
+      <div class="btn-dropdown inactive" id="profile-dropdown">
+        <div class="dropdown-item"><a href="#">Profile</a></div>
+        <div class="dropdown-item"><a href="#">Orders</a></div>
+        <div class="dropdown-item"><a href="#">Log Out</a></div>
+      </div>
     </div>
-    <ng-template #userProfileBlock>
-      <li class="nav-item">
-        <a class="nav-link " routerLink="" (click)="logout()">Logout</a>
-      </li>
+    <ng-template #auth>
+      <div class="auth">
+        <div class="login"><a href="/login">Login</a></div>
+        <div class="login"><a href="/register">Register</a></div>
+      </div>
     </ng-template>
-  </ul>
-</div>
-</nav>
-<router-outlet></router-outlet>
+  </div>
+</header>
