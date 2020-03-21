@@ -7,7 +7,7 @@
     <input id = "orderField"  class="float-field" type="text" name="orderField"  [(ngModel)]="orderName" #orderField required>
   </div>
   <p>Select a destination</p>
-  <div class="map-div"><app-map [type]="'order'" (locationChange)="updateLocation($event)"></app-map></div>
+  <div id="map-div"><app-map [type]="'order'" (locationChange)="updateLocation($event)"></app-map></div>
   <div class="text">Latitude of Destination: <p id="lat" #lat>{{latVal}}</p></div>
   <div class="text">Longitude of Destination: <p id="long" #long>{{longVal}}</p></div>
   <button class="btn" (click)="placeOrder()">Place Order</button>

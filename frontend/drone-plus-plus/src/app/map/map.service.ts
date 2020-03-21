@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class MapService {
   apiUrl = 'https://api.tomtom.com/routing/1/calculateRoute/';
+  socketUrl = 'ws://127.0.0.1:8002/drone/track/all/'
   logisticsUrl = 'http://127.0.0.1:8002';
   constructor(private httpClient: HttpClient) { }
   findPath(destLat, destLong) {
@@ -24,5 +25,20 @@ export class MapService {
     return this.httpClient.get(
       `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde` //7
     );
+  }
+  trackDrones(droneId) {
+    if (droneId === undefined) {
+      const socket = new WebSocket(this.socketUrl);
+      socket.onmessage = (e) => {
+        // websocket opened for all drone tracking
+        console.log('message', e);
+      };
+    } else {
+      const socket = new WebSocket(`${this.socketUrl}${droneId}/`);
+      socket.onmessage = (e) => {
+      // websocket opened for single drone tracking
+        console.log('message', e);
+      };
+    }
   }
 }

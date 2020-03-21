@@ -46,7 +46,7 @@ export class MapComponent implements OnInit {
         response.subscribe((data) => {
           const points = data['routes'][0].legs[0].points;
           const wayPoints = new Array();
-          for (let i = 0; i < points.length; ++i) {
+          for(let i = 0; i < points.length; ++i) {
             wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
           }
           if (path !== undefined) {
@@ -58,8 +58,10 @@ export class MapComponent implements OnInit {
           }).addTo(map);
         });
       });
-    } else if (this.type === 'track=all') {
-      const token = localStorage.getItem('user-token');
+    } else if (this.type === 'track') {
+        const token = localStorage.getItem('user-token');
+      //  TODO: validate user is Logistics person
+        this.mapService.trackDrones(undefined);
     }
 
   }

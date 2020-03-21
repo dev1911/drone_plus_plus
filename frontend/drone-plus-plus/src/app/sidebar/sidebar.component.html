@@ -1,1 +1,8 @@
-<p>sidebar works!</p>
+<div id="sidebar" #sidebar>
+  <div id="title">Select the order to be tracked</div>
+  <div *ngFor="let order of orders.orders" class="order">
+    <div class="order-name">{{order.name}}</div>
+    <button class="track-btn">Track</button>
+    <div class="order-id">{{order.id}}</div>
+  </div>
+</div>

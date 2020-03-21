@@ -9,6 +9,13 @@ h3, p{
   font-weight: normal;
 }
 
+#map-div{
+  height: 500px;
+  width: 750px;
+  overflow: hidden;
+
+}
+
 .text{
   clear: both;
   font-size:small;

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NeworderComponent } from './neworder/neworder.component';
+import { TrackorderComponent } from './trackorder/trackorder.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { NeworderComponent } from './neworder/neworder.component';
     MapComponent,
     SidebarComponent,
     NeworderComponent,
+    TrackorderComponent,
   ],
   imports: [
     BrowserModule,
