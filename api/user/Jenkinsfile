@@ -6,7 +6,7 @@ node{
 	}
 
 	stage('Build image'){
-		app = docker.build('shlokashah/user_web')
+		app = docker.build('shlokashah/user_web/api/user')
 	}
 
 	stage('Test image'){
