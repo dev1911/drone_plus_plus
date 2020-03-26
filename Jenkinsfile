@@ -6,7 +6,7 @@ node{
 	}
 
 	stage('Build image'){
-		app = docker.build('$()env.BUILD_NUMBER',"-f ${shlokashah/user_web/api/user}/${Dockerfile} ${shlokashah/user_web/api/user}")
+		app = docker.build('shlokashah/user_web')
 	}
 
 	stage('Test image'){
