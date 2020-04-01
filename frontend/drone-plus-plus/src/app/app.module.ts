@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NeworderComponent } from './neworder/neworder.component';
 import { TrackorderComponent } from './trackorder/trackorder.component';
+import {AuthInterceptor} from './login/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,14 @@ import { TrackorderComponent } from './trackorder/trackorder.component';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [RegisterService],
+  providers: [
+    RegisterService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

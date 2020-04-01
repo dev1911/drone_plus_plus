@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 
 @Component({
@@ -9,12 +9,15 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   @ViewChild('sidebar', {static: true}) sidebar: ElementRef;
+  @Output() track = new EventEmitter();
   constructor() { }
 
   @Input() orders: object;
 
   ngOnInit() {
-
+  }
+  trackOrder(orderId: number) {
+    this.track.emit(orderId);
   }
 
 }

@@ -2,7 +2,9 @@
   <div id="title">Select the order to be tracked</div>
   <div *ngFor="let order of orders.orders" class="order">
     <div class="order-name">{{order.name}}</div>
-    <button class="track-btn">Track</button>
-    <div class="order-id">{{order.id}}</div>
+    <button class="track-btn" (click)="trackOrder(order.id)">Track</button>
+    <div class="order-id">Order ID: {{order.id}}</div>
+    <div class="eta">Arriving <i>{{order.eta}}</i></div>
+    <div>Some other details of order to be shown</div>
   </div>
 </div>

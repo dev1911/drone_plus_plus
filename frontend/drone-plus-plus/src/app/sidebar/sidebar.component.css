@@ -64,8 +64,14 @@
 
 .order-id{
   clear:both;
+  color: #777777;
+  font-size: small;
 }
 
+.eta{
+  font-size: small;
+  color: #777777;
+}
 
 #map-div{
   height: 500px;

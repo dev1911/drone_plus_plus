@@ -3,6 +3,11 @@ import {MapService} from './map.service';
 declare let L;
 declare let tomtom: any;
 
+/**
+ * This file is very badly written
+ * Try to make it modular
+ */
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -16,6 +21,11 @@ export class MapComponent implements OnInit {
   long = 72.8498176;
   destLat = 19.0178;
   destLong = 72.8478;
+  droneIcon = new L.icon({
+    iconUrl: '/assets/img/drone.svg',
+    shadowUrl: '/assets/img/drone.svg',
+    iconSize: [20, 20]
+  });
   @Input() type: string;
   ngOnInit() {
     if (this.type === 'order') {
@@ -23,7 +33,6 @@ export class MapComponent implements OnInit {
         // console.log('Got position', position.coords);
         this.lat = position.coords.latitude;
         this.long = position.coords.longitude;
-        // console.log(this.lat, this.long);
       });
       const map = tomtom.L.map('map', {
         key: 'lJiiu1BLec33l0iGSETxeotI8qhJzde7',
@@ -33,10 +42,9 @@ export class MapComponent implements OnInit {
         source: 'vector'
       });
       let path;
-      let marker = new L.marker([this.lat, this.long]).addTo(map);
+      const marker = new L.marker([this.lat, this.long]).addTo(map);
       map.on('click', (e) => {
-        marker.remove();
-        marker = new L.marker(e.latlng).addTo(map);
+        marker.setLatLng(e.latlng);
         this.lat = e.latlng.lat;
         this.long = e.latlng.lng;
         // console.log(this.lat, this.long);
@@ -60,8 +68,27 @@ export class MapComponent implements OnInit {
       });
     } else if (this.type === 'track') {
         const token = localStorage.getItem('user-token');
-      //  TODO: validate user is Logistics person
-        this.mapService.trackDrones(undefined);
+        if (!this.type) {
+          // TODO: this is for logistics person to track multiple drones
+          this.mapService.trackDrones(undefined);
+        } else {
+          // TODO: this is for customers to track one single drone at a time
+          const map = tomtom.L.map('map', {
+            key: 'lJiiu1BLec33l0iGSETxeotI8qhJzde7',
+            basePath: '/assets/sdk',
+            center: [this.lat, this.long],
+            zoom: 15,
+            source: 'vector'
+          });
+          const marker = new L.marker([this.lat, this.long], {icon: this.droneIcon}).addTo(map);
+          this.mapService.locationChange.subscribe(
+            e => {
+              const res = JSON.parse(e);
+              console.log('Update position');
+              marker.setLatLng([parseFloat(res.lat), parseFloat(res.long)]);
+            }
+          );
+        }
     }
 
   }

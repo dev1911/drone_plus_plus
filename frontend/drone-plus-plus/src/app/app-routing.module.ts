@@ -4,13 +4,13 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {NeworderComponent} from './neworder/neworder.component';
 import {TrackorderComponent} from './trackorder/trackorder.component';
-
+import {AuthGuardService} from './login/auth-guard.service';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'order/new', component: NeworderComponent},
-  {path: 'order/track', component: TrackorderComponent}
+  {path: 'order/new', component: NeworderComponent, canActivate: [AuthGuardService]},
+  {path: 'order/track', component: TrackorderComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

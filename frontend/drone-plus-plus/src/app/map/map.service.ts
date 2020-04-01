@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
+  socket: WebSocket = null;
+  locationChange = new EventEmitter();
   apiUrl = 'https://api.tomtom.com/routing/1/calculateRoute/';
-  socketUrl = 'ws://127.0.0.1:8002/drone/track/all/'
+  socketUrl = 'ws://127.0.0.1:8000/ws/drone/track/';
   logisticsUrl = 'http://127.0.0.1:8002';
   constructor(private httpClient: HttpClient) { }
   findPath(destLat, destLong) {
@@ -23,22 +26,33 @@ export class MapService {
     //     console.log('error ', error);
     //   });
     return this.httpClient.get(
-      `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde` //7
+        `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde` // 7
     );
   }
   trackDrones(droneId) {
+    if (this.socket) {
+      this.socket.close();
+    }
     if (droneId === undefined) {
-      const socket = new WebSocket(this.socketUrl);
-      socket.onmessage = (e) => {
+      this.socket = new WebSocket(this.socketUrl);
+      this.socket.onmessage = (e) => {
         // websocket opened for all drone tracking
         console.log('message', e);
       };
     } else {
-      const socket = new WebSocket(`${this.socketUrl}${droneId}/`);
-      socket.onmessage = (e) => {
+      this.socket = new WebSocket(`${this.socketUrl}${droneId}/`);
+      this.socket.onmessage = (e) => {
       // websocket opened for single drone tracking
-        console.log('message', e);
+        this.locationChange.emit(e.data);
       };
     }
   }
 }
+
+
+/*
+* drone svg  is taken from
+* <div>Icons made by <a href="https://www.flaticon.com/authors/roundicons"
+* title="Roundicons">Roundicons</a> from <a href="https://www.flaticon.com/"
+* title="Flaticon">www.flaticon.com</a></div>
+* */

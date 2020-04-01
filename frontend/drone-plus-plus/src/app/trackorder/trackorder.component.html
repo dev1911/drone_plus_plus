@@ -1,7 +1,7 @@
 <div id="track-order">
-  <app-sidebar [orders]="orders" ></app-sidebar>
+  <app-sidebar [orders]="orders" (track)="track($event)"></app-sidebar>
   <div id="main-map">
     <div id="map-controls">//TODO:Controls for map</div>
-    <div id="map-div"><app-map [type]="'order'"></app-map></div>
+    <div id="map-div"><app-map [type]="'track'"></app-map></div>
   </div>
 </div>
