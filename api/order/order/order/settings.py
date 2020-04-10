@@ -79,10 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'order',
-        'USER': os.getenv("MYSQL_USER" , "admin"),
+        'USER': os.getenv("MYSQL_USER" ,"admin"),
         'PASSWORD': os.getenv("MYSQL_PASSWORD" , "admin"),
-        'HOST': os.getenv("MYSQL_HOST"),
-        'PORT': os.getenv("MYSQL_PORT" , 8001),
+        'HOST': os.getenv("MYSQL_SERVICE_SERVICE_HOST"),
+        'PORT': os.getenv("MYSQL_SERVICE_SERVICE_PORT" , 8001),
     }
 }
 

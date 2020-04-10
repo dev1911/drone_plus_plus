@@ -8,7 +8,7 @@ metadata:
 spec:
     containers:
         - name: order-django-app
-          image: docker.io/dev1911/drone_plus_plus_order
+          image: docker.io/dev1911/drone_plus_plus_order:latest
           ports:
             - containerPort: 8000
           env:
@@ -19,4 +19,4 @@ spec:
             - name: MYSQL_PASSWORD
               value: admin
             - name: MYSQL_PORT
-              value: 8001
+              value: "8001"
