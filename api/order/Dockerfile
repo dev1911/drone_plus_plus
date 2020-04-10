@@ -5,8 +5,7 @@ WORKDIR /code
 
 RUN pip install django
 RUN pip install django_rest_framework
+RUN pip install mysqlclient
 ADD ./ /code/
-
-RUN python3 order/manage.py migrate
 
 CMD ["python3","order/manage.py","runserver","0.0.0.0:8000"]

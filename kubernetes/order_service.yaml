@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: order-service
+    labels:
+        micro-service: order
+spec:
+    type: NodePort
+    selector:
+        micro-service: order
+    ports:
+        - nodePort: 30000
+          port: 8000
+          targetPort: 8000
