@@ -8,6 +8,7 @@ spec:
     replicas: 2
     selector:
         matchLabels:
+            app: web
             micro-service: order
     template:
         metadata:
@@ -16,8 +17,17 @@ spec:
                 micro-service: order
         spec:
             containers:
-                - name: order-django-app
-                  image: docker.io/dev1911/drone_plus_plus_order
-                  ports:
-                    - containerPort: 8000
+            - name: order-django-app
+              image: docker.io/dev1911/drone_plus_plus_order:latest
+              ports:
+                  - containerPort: 8000
+              env:
+              - name: MYSQL_HOST
+                value: mysql-service
+              - name: MYSQL_USER
+                value: root
+              - name: MYSQL_PASSWORD
+                value: admin
+              - name: MYSQL_PORT
+                value: "8001"
                     

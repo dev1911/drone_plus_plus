@@ -15,7 +15,7 @@ spec:
             - name: MYSQL_HOST
               value: mysql-service
             - name: MYSQL_USER
-              value: admin
+              value: root
             - name: MYSQL_PASSWORD
               value: admin
             - name: MYSQL_PORT

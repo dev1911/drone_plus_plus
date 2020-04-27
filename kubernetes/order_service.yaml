@@ -10,5 +10,5 @@ spec:
         micro-service: order
     ports:
         - nodePort: 30000
-          port: 8000
+          port: 9000
           targetPort: 8000
