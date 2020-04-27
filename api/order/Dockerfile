@@ -1,10 +1,17 @@
-FROM python:3.7-alpine
+FROM python:3.7
 
 RUN mkdir /code
 WORKDIR /code
 
 RUN pip install django
 RUN pip install django_rest_framework
+RUN apt-get update
+RUN apt-get -y install default-libmysqlclient-dev
+#RUN pip install mysql-connector-python
+#RUN pip install django-mysql
+
+#RUN apt-get install -y libffi-dev
+#RUN apt-get install python3-dev
 RUN pip install mysqlclient
 ADD ./ /code/
 
