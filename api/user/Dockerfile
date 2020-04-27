@@ -10,4 +10,4 @@ RUN apt-get -y install default-libmysqlclient-dev
 RUN pip install mysqlclient
 ADD ./ /code/
 
-CMD ["python3","order/manage.py","runserver","0.0.0.0:8000"]
+CMD ["python3","user/manage.py","runserver","0.0.0.0:8000"]
