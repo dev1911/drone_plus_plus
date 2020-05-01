@@ -20,3 +20,5 @@ spec:
               value: admin
             - name: POSTGRES_PORT
               value: "8001"
+            - name: POSTGRES_DB
+              value: user
