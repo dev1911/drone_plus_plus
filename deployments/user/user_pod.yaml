@@ -12,11 +12,11 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: MYSQL_HOST
+            - name: POSTGRES_HOST
               value: mysql-service
-            - name: MYSQL_USER
-              value: root
-            - name: MYSQL_PASSWORD
+            - name: POSTGRES_USER
               value: admin
-            - name: MYSQL_PORT
+            - name: POSTGRES_PASSWORD
+              value: admin
+            - name: POSTGRES_PORT
               value: "8001"
