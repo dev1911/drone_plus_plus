@@ -16,7 +16,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: admin
             - name: POSTGRES_DB
-              value: userdb
+              value: user
           volumeMounts:
           - name: postgres-pv
             mountPath: var/lib/postgresql/data
