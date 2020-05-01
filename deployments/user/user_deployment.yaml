@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: user-deployment
+    labels: 
+        app: web
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: web
+            micro-service: user
+    template:
+        metadata:
+            labels:
+                app: web
+                micro-service: user
+        spec:
+            containers:
+            - name: user-django-app
+              image: docker.io/dev1911/drone_plus_plus_user:latest
+              ports:
+                  - containerPort: 8000
+              env:
+              - name: MYSQL_HOST
+                value: mysql-service
+              - name: MYSQL_USER
+                value: root
+              - name: MYSQL_PASSWORD
+                value: admin
+              - name: MYSQL_PORT
+                value: "8001"
+                    

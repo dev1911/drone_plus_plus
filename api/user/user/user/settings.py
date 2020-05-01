@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'user.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgres',
         'NAME': 'user',
-        'USER': os.getenv("MYSQL_USER" ,"admin"),
-        'PASSWORD': os.getenv("MYSQL_PASSWORD" , "admin"),
-        'HOST': os.getenv("MYSQL_USER_SERVICE_HOST"),
-        'PORT': os.getenv("MYSQL_USER_SERVICE_PORT"),
+        'USER': os.getenv("POSTGRES_USER" ,"admin"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin"),
+        'HOST': os.getenv("POSTGRES_USER_SERVICE_HOST"),
+        'PORT': os.getenv("POSTGRES_USER_SERVICE_PORT"),
     }
 }
 AUTH_USER_MODEL = 'accounts.User'
