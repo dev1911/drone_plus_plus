@@ -15,12 +15,16 @@ from .serializers import *
 
 # reusable functions
 
-def authenticate_api_token(reqeust):
+def authenticate_api_token(request):
     # checking that this request is from API service
     try:
-        token = reqeust.META['HTTP_API_TOKEN']
+        # print(request.META)
+        token = request.META['HTTP_API_TOKEN']
+        print(token)
     except:
+        print("a")
         return False
+
     if token == TOKEN:
         return  True
     else:
@@ -29,7 +33,7 @@ def authenticate_api_token(reqeust):
 def get_user_token(request):
     # checking whether the user token is there in request
     try:
-        user_token = request.META['HTTP_USER_TOKEN']
+        user_token = request.META['HTTP_AUTHORIZATION']
     except:
         # if there is no user token, it is a bad request
         print("User token not found in the request.")
@@ -126,7 +130,7 @@ def list_drones(request):
 # /drone/info
 @api_view(['GET'])
 @permission_classes((AllowAny,))
-def info_drone(request):
+def info_drone(request,drone_id):
     if not authenticate_api_token(request):
         return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
@@ -138,9 +142,7 @@ def info_drone(request):
     if user_id is None:
         return Response({"error": invalid_user_token}, status=status.HTTP_400_BAD_REQUEST)
     # getting the drone
-    try:
-        drone_id = request.query_params['drone_id']
-    except:
+    if(drone_id is None):
         # no drone_id in request
         return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
     # finding the drone of given ID
@@ -155,7 +157,7 @@ def info_drone(request):
 # /drone/current-battery
 @api_view(['GET'])
 @permission_classes((AllowAny,))
-def current_battery_drone(request):
+def current_battery_drone(request,drone_id):
     if not authenticate_api_token(request):
         return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
@@ -166,9 +168,7 @@ def current_battery_drone(request):
     user_id = authenticate_user_token(user_token)
     if user_id is None:
         return Response({"error": invalid_user_token}, status=status.HTTP_400_BAD_REQUEST)
-    try:
-        drone_id = request.query_params['drone_id']
-    except:
+    if (drone_id is None):
         return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
     drone = Drone.objects.get(id=drone_id)
     if drone:
