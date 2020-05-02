@@ -11,11 +11,24 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 
+TOKEN = "this_is_token"
+
+def authenticate_api_token(request):
+	# checking that this request is from API service
+	token = request.META.get('HTTP_API_TOKEN',"")
+	print(token,TOKEN)
+	if(token == TOKEN):
+		print("AYA")
+		print(token)
+		return True
+	else:
+		return False
+		
 # /accounts/register/
 @api_view(['POST',])
 def registration_view(request):
 	print("viewww")
-	if (request.method == 'POST') and (request.META.get("HTTP_API_TOKEN","")):
+	if ((request.method == 'POST') and (authenticate_api_token(request))):
 		print("idhar ayaa")
 		serializer = RegistrationSerializer(data=request.data)
 		data = {}
@@ -50,10 +63,7 @@ def logout_view(request):
 # /accounts/user_id/
 @api_view(['GET',])
 def user_id(request):
-	print("TOK",request.META.get("HTTP_API_TOKEN",""))
-	print(request.META.get("HTTP_AUTHORIZATION",""))
-	print(request.headers)
-	if request.META.get("HTTP_API_TOKEN",""):
+	if (authenticate_api_token(request)):
 		token = request.META.get("HTTP_AUTHORIZATION","").split()[1]
 		print(token)
 		username = Token.objects.get(key=token)
@@ -82,7 +92,7 @@ def disable_user(request):
 class Login_view(ObtainAuthToken):
 	def post(self, request, *args, **kwargs):
 		serializer = self.serializer_class(data=request.data,context={'request': request})
-		if (  serializer.is_valid()) and (request.META.get("HTTP_API_TOKEN","")):
+		if ((serializer.is_valid()) and (authenticate_api_token(request))):
 			user = serializer.validated_data['user']
 			token, created = Token.objects.get_or_create(user=user)
 			print("TOken",request.META.get("HTTP_AUTHORIZATION",""))
