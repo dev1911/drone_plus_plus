@@ -12,22 +12,24 @@ spec:
             micro-service: user
     template:
         metadata:
+            name: user
             labels:
                 app: web
                 micro-service: user
         spec:
             containers:
-            - name: user-django-app
-              image: docker.io/dev1911/drone_plus_plus_user:latest
-              ports:
-                  - containerPort: 8000
-              env:
-              - name: MYSQL_HOST
-                value: mysql-service
-              - name: MYSQL_USER
-                value: root
-              - name: MYSQL_PASSWORD
-                value: admin
-              - name: MYSQL_PORT
-                value: "8001"
-                    
+                - name: user-django-app
+                  image: docker.io/dev1911/drone_plus_plus_user:latest
+                  ports:
+                    - containerPort: 8000
+                  env:
+                    - name: POSTGRES_HOST
+                      value: mysql-service
+                    - name: POSTGRES_USER
+                      value: admin
+                    - name: POSTGRES_PASSWORD
+                      value: admin
+                    - name: POSTGRES_PORT
+                      value: "8001"
+                    - name: POSTGRES_DB
+                      value: userdb
