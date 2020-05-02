@@ -15,7 +15,7 @@ from rest_framework.authentication import TokenAuthentication
 @api_view(['POST',])
 def registration_view(request):
 	print("viewww")
-	if request.method == 'POST':
+	if (request.method == 'POST') and (request.META.get("HTTP_API_TOKEN","")):
 		print("idhar ayaa")
 		serializer = RegistrationSerializer(data=request.data)
 		data = {}
@@ -32,6 +32,8 @@ def registration_view(request):
 			data = serializer.errors
 			print(data)
 			return Response({'error':data},content_type='application/json',status=500)
+	else:
+		return Response({'failure':'api authorization token not provided'},content_type='application/json',status=400)
 		
 # /accounts/logout/
 @api_view(['POST',])
@@ -41,17 +43,17 @@ def logout_view(request):
 	if request.META.get("HTTP_AUTHORIZATION",""):
 		logout(request)
 		print(request.META.get("HTTP_AUTHORIZATION", ""))
-		# token = request.META.get("HTTP_AUTHORIZATION", "").split()[1]
-		# print(token[1])
-		# Token.objects.get(key=token).delete()
 		return Response({'success':"Successfully logged out"},status=200)
 	else:
 		return Response({'header':'authentication header not found'},content_type='application/json',status=401)
 
 # /accounts/user_id/
-@api_view(['GET'],)
+@api_view(['GET',])
 def user_id(request):
-	if request.META.get("HTTP_API",""):
+	print("TOK",request.META.get("HTTP_API_TOKEN",""))
+	print(request.META.get("HTTP_AUTHORIZATION",""))
+	print(request.headers)
+	if request.META.get("HTTP_API_TOKEN",""):
 		token = request.META.get("HTTP_AUTHORIZATION","").split()[1]
 		print(token)
 		username = Token.objects.get(key=token)
@@ -80,9 +82,10 @@ def disable_user(request):
 class Login_view(ObtainAuthToken):
 	def post(self, request, *args, **kwargs):
 		serializer = self.serializer_class(data=request.data,context={'request': request})
-		if serializer.is_valid():
+		if (  serializer.is_valid()) and (request.META.get("HTTP_API_TOKEN","")):
 			user = serializer.validated_data['user']
 			token, created = Token.objects.get_or_create(user=user)
+			print("TOken",request.META.get("HTTP_AUTHORIZATION",""))
 			return Response({'token': token.key,'user_id': user.pk,},content_type='application/json',status=200)
 		else:
 			return Response({'credentials':'Credentials not provided'},content_type='application/json',status=400)
