@@ -4,8 +4,8 @@ from django.db import models
 class Order(models.Model):
 	order_id = models.AutoField(primary_key=True)
 	user_id = models.CharField(unique=False,max_length=100)
-	latitude = models.FloatField(max_length=20)
-	longitude = models.FloatField(max_length=20)
+	latitude = models.FloatField(max_length=20 , blank=False)
+	longitude = models.FloatField(max_length=20 , blank=False)
 	address = models.CharField(unique=False,max_length=500)
 	status = models.CharField(max_length=20 , choices= (("Completed" , "Completed"),
 														("Pending" , "Pending"),

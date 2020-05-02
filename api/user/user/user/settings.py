@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2@##7r@g-1n#y7z^cg(0r1$%*ef)%9vnx2#km36jq7y$ht0apo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = os.getenv("DEBUG", True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'user.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("POSTGRES_DB",'userdb'),
+        'USER': os.getenv("POSTGRES_USER" ,"admin"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin"),
+        'HOST': os.getenv("POSTGRES_USER_SERVICE_HOST"),
+        'PORT': os.getenv("POSTGRES_USER_SERVICE_PORT"),
     }
 }
 AUTH_USER_MODEL = 'accounts.User'
