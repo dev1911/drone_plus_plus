@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NewOrderService} from './neworder.service';
 
 @Component({
   selector: 'app-neworder',
@@ -11,7 +12,7 @@ export class NeworderComponent implements OnInit {
   orderName: string;
   latVal: number;
   longVal: number;
-  constructor() { }
+  constructor(private newOrderService: NewOrderService) { }
   ngOnInit() {
 
   }
@@ -21,7 +22,15 @@ export class NeworderComponent implements OnInit {
   }
 
   placeOrder() {
-    // TODO: create and link order service. handle errors
-    console.log('Submit order');
+    this.newOrderService.placeOrder({
+      orderName: this.orderName,
+      latitude: this.latVal,
+      longitude: this.longVal,
+      address: 'some random address',
+      status: ''
+    }).subscribe((data) => {
+      console.log(data);
+    })
+    ;
   }
 }

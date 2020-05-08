@@ -1,7 +1,23 @@
 <div id="track-order">
   <app-sidebar [orders]="orders" (track)="track($event)"></app-sidebar>
   <div id="main-map">
-    <div id="map-controls">//TODO:Controls for map</div>
+    <div id="map-controls">
+      <div class="switch-label">Show Warehouses</div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="showWarehouse" (change)="showWarehouseChange($event)"/>
+        <span class="slider round"></span>
+      </label>
+      <div class="switch-label">Show Drones</div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="showDrones" (change)="showDronesChange($event)"/>
+        <span class="slider round"></span>
+      </label>
+      <div class="switch-label">Show Paths</div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="showPaths" (change)="showPathsChange($event)"/>
+        <span class="slider round"></span>
+      </label>
+    </div>
     <div id="map-div"><app-map [type]="'track'"></app-map></div>
   </div>
 </div>
