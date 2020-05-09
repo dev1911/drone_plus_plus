@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'service',
     'channels',
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {

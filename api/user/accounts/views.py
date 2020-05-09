@@ -9,6 +9,7 @@ from accounts.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
+import json
 # Create your views here.
 
 TOKEN = "this_is_token"
@@ -87,6 +88,22 @@ def disable_user(request):
 		return Response({"success":"User disabled Successfully"},content_type='application/json',status=200)
 	else:
 		return Response({'failure':'user authentication details not provided'},content_type='application/json',status=400)
+
+# /accounts/user_details
+@api_view(['GET'],)
+def user_details(request):
+	if (authenticate_api_token(request)):
+		token = request.META.get("HTTP_AUTHORIZATION","").split()[1]
+		print(token)
+		username = Token.objects.get(key=token)
+		print(username.user)
+		# user_type = User.objects.get()
+		user_id = User.objects.get(username = username.user)
+		print(user_id.pk)
+		user_details = User.objects.get(pk = user_id.pk)
+		return Response({'success':'successful','username':user_details.username,'user_type':user_details.user_type},content_type='application/json',status=200)
+	else:
+		return Response({'failure':'api authorization token not provided'},content_type='application/json',status=400)
 
 
 class Login_view(ObtainAuthToken):

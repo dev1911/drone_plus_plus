@@ -28,6 +28,15 @@ def register(request):
 	response = requests.post(user_service + "accounts/register/", data=request.data,headers=header)
 	return Response(response.json())
 
+# /user_details
+@api_view(['GET',])
+@permission_classes((AllowAny,))
+def user_details(request):
+	header = {'Authorization':request.META.get("HTTP_AUTHORIZATION",""),"Api-Token":TOKEN}
+	response = requests.get(user_service + "accounts/user_details/",headers=header)
+	print(response)
+	return Response(response.json())
+
 # /create_order
 @api_view(['POST'])
 @permission_classes((AllowAny,))
