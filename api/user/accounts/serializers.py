@@ -23,4 +23,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		account.save()
 		return account
 
+class UserSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = User
+		fields = ['username','user_type']
+
 

@@ -5,6 +5,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('user_details/',user_details,name='user_details'),
+    path('all_users/',all_users,name='all_users'),
     path('drone/<str:drone_id>', drone, name='drone'),
     path('create_order/',create_order,name='create_order'),
     path('update_order/',update_order,name="update_order"),

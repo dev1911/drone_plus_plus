@@ -37,6 +37,14 @@ def user_details(request):
 	print(response)
 	return Response(response.json())
 
+@api_view(['GET',])
+@permission_classes((AllowAny,))
+def all_users(request):
+	header = {'Authorization':request.META.get("HTTP_AUTHORIZATION",""),"Api-Token":TOKEN}
+	response = requests.get(user_service + "accounts/all_users/",headers=header)
+	print(response)
+	return Response(response.json())
+
 # /create_order
 @api_view(['POST'])
 @permission_classes((AllowAny,))
