@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'service',
     'channels',
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {
@@ -134,3 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True

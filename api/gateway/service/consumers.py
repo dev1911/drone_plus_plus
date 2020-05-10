@@ -26,14 +26,12 @@ class DroneTrackConsumer(WebsocketConsumer):
                 return
             lat = text_data['lat']
             long = text_data['long']
-            status = text_data['status']
             async_to_sync(self.channel_layer.group_send)(
                 self.group_name,
                 {
                     'type': 'location',
                     'lat': lat,
-                    'long': long,
-                    'status':status
+                    'long': long
                 }
             )
         except:
@@ -42,11 +40,9 @@ class DroneTrackConsumer(WebsocketConsumer):
     def location(self, event):
         lat = event['lat']
         long = event['long']
-        status = event['status']
         self.send(text_data=json.dumps(
             {
                 'lat':lat,
-                'long':long,
-                'status':status
+                'long':long
             }
         ))

@@ -3,5 +3,5 @@ from . import consumers
 
 
 websocket_urlpatterns = [
-    re_path(r'ws/drone/(?P<drone_id>\w+)/track/$', consumers.DroneTrackConsumer),
+    re_path(r'ws/drone/track/(?P<drone_id>\w+)/$', consumers.DroneTrackConsumer),
 ]
