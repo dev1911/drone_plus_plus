@@ -10,5 +10,6 @@
   <div id="map-div"><app-map [type]="'order'" (locationChange)="updateLocation($event)"></app-map></div>
   <div class="text">Latitude of Destination: <p id="lat" #lat>{{latVal}}</p></div>
   <div class="text">Longitude of Destination: <p id="long" #long>{{longVal}}</p></div>
+  <div class="error text">{{error}}</div>
   <button class="btn" (click)="placeOrder()">Place Order</button>
 </div>

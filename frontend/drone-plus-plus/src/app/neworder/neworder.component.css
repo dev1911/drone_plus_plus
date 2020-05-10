@@ -21,7 +21,7 @@ h3, p{
   font-size:small;
   margin-top:10px;
   float: left;
-  width: 200px;
+  width: 250px;
   /*height: 30px;*/
 }
 
@@ -43,6 +43,11 @@ h3, p{
   background: #dddddd;
   cursor: pointer;
   border: 1px solid transparent;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
 }
 
 .btn:active{

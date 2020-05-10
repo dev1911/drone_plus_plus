@@ -25,8 +25,11 @@ export class LoginService {
 
   getUserInfo(): string {
     // TODO: call API to get user name and cache it for later requests
-    const s = 'admin';
-    return s;
+    let username: string;
+    this.http.get(this.apiURL + 'user_details/').subscribe( data => {
+      username = data['username'];
+    });
+    return username;
   }
 
   logout() {

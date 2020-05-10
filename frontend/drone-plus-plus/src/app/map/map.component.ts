@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MapService} from './map.service';
+import {TrackorderService} from '../trackorder/trackorder.service';
 declare let L;
 declare let tomtom: any;
 
@@ -16,7 +17,7 @@ declare let tomtom: any;
 
 export class MapComponent implements OnInit {
   @Output() locationChange = new EventEmitter();
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private trackorderService: TrackorderService) { }
   lat = 18.983938;
   long = 72.8498176;
   destLat = 19.0178;
@@ -26,15 +27,21 @@ export class MapComponent implements OnInit {
     shadowUrl: '/assets/img/drone.svg',
     iconSize: [20, 20]
   });
+  warehouseIcon = new L.icon({
+    iconUrl: '/assets/img/wh.svg',
+    iconSize: [20, 20]
+  });
+  map = undefined;
+  dronePath = undefined;
+  warehouses = [];
   @Input() type: string;
   ngOnInit() {
     if (this.type === 'order') {
       navigator.geolocation.getCurrentPosition((position) => {
-        // console.log('Got position', position.coords);
         this.lat = position.coords.latitude;
         this.long = position.coords.longitude;
       });
-      const map = tomtom.L.map('map', {
+      this.map = tomtom.L.map('map', {
         key: 'lJiiu1BLec33l0iGSETxeotI8qhJzde7',
         basePath: '/assets/sdk',
         center: [this.lat, this.long],
@@ -42,8 +49,8 @@ export class MapComponent implements OnInit {
         source: 'vector'
       });
       let path;
-      const marker = new L.marker([this.lat, this.long]).addTo(map);
-      map.on('click', (e) => {
+      const marker = new L.marker([this.lat, this.long]).addTo(this.map);
+      this.map.on('click', (e) => {
         marker.setLatLng(e.latlng);
         this.lat = e.latlng.lat;
         this.long = e.latlng.lng;
@@ -63,7 +70,7 @@ export class MapComponent implements OnInit {
           path = L.polyline(wayPoints, {
             color: 'red',
             weight: 3
-          }).addTo(map);
+          }).addTo(this.map);
         });
       });
     } else if (this.type === 'track') {
@@ -72,15 +79,16 @@ export class MapComponent implements OnInit {
           // TODO: this is for logistics person to track multiple drones
           this.mapService.trackDrones(undefined);
         } else {
-          // TODO: this is for customers to track one single drone at a time
-          const map = tomtom.L.map('map', {
+          this.map = tomtom.L.map('map', {
             key: 'lJiiu1BLec33l0iGSETxeotI8qhJzde7',
             basePath: '/assets/sdk',
             center: [this.lat, this.long],
             zoom: 15,
             source: 'vector'
           });
-          const marker = new L.marker([this.lat, this.long], {icon: this.droneIcon}).addTo(map);
+          const marker = new L.marker([this.lat, this.long], {icon: this.droneIcon})
+            .bindTooltip('Drone with Order', {permanent: false, direction: 'top'})
+            .addTo(this.map);
           this.mapService.locationChange.subscribe(
             e => {
               const res = JSON.parse(e);
@@ -91,6 +99,45 @@ export class MapComponent implements OnInit {
         }
     }
 
+    if (this.trackorderService.getShowWarehouses()) {
+      this.showWarehouses();
+    }
   }
 
+  showWarehouses() {
+    this.mapService.getWarehouses().subscribe( data => {
+      data.forEach(w => {
+        const marker = new L.marker([w.latitude, w.longitude], {icon: this.warehouseIcon})
+          .bindTooltip(w.name, {permanent: false, direction: 'top'})
+          .addTo(this.map);
+        this.warehouses.push(marker);
+      });
+    });
+  }
+
+  hideWarehouses() {
+    this.warehouses.forEach( warehouse => {
+      this.map.removeLayer(warehouse);
+    });
+  }
+
+  showDronePath(droneId, destLat, destLong) {
+    if (this.dronePath !== undefined) {
+      this.map.removeLayer(this.dronePath);
+    }
+    this.mapService.findPath(destLat, destLong, this.lat, this.long).subscribe((data) => {
+      const points = data['routes'][0].legs[0].points;
+      const wayPoints = new Array();
+      for(let i = 0; i < points.length; ++i) {
+        wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
+      }
+      if (this.dronePath !== undefined) {
+        this.dronePath.remove();
+      }
+      this.dronePath = L.polyline(wayPoints, {
+        color: 'red',
+        weight: 3
+      }).addTo(this.map);
+    });
+  }
 }

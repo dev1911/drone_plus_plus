@@ -16,8 +16,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
   }
-  trackOrder(orderId: number) {
-    this.track.emit(orderId);
+  trackOrder(droneId: number) {
+    this.track.emit(droneId);
   }
 
 }

@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class TrackorderService {
-  gatewayUrl = 'http://127.0.0.1:8000/all_order';
+  gatewayUrl = 'http://127.0.0.1:8000/all_order/';
   constructor(private httpClient: HttpClient) { }
   getOrders() {
     return this.httpClient.get(this.gatewayUrl);

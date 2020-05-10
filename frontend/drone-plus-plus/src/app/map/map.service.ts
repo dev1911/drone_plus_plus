@@ -9,11 +9,12 @@ export class MapService {
   locationChange = new EventEmitter();
   apiUrl = 'https://api.tomtom.com/routing/1/calculateRoute/';
   socketUrl = 'ws://127.0.0.1:8000/ws/drone/track/';
+  gatewayUrl = 'http://127.0.0.1:8000/';
   logisticsUrl = 'http://127.0.0.1:8002';
   constructor(private httpClient: HttpClient) { }
-  findPath(destLat, destLong) {
-    const srcLat = 19.1136;
-    const srcLong = 72.8697;
+  findPath(destLat, destLong, srcLatDef?, srcLongDef?) {
+    const srcLat = srcLatDef || 19.1136;
+    const srcLong = srcLongDef || 72.8697;
     // // calling Logistics API to find nearest warehouse
     // const res = this.httpClient.get(
     //   `${this.logisticsUrl}/warehouse/find/?destLat=${destLat}&destLong=${destLong}`
@@ -26,7 +27,7 @@ export class MapService {
     //     console.log('error ', error);
     //   });
     return this.httpClient.get(
-        `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde` // 7
+        `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde7` // 7
     );
   }
   trackDrones(droneId) {
@@ -47,6 +48,11 @@ export class MapService {
       };
     }
   }
+
+  getWarehouses() {
+    return this.httpClient.get(this.gatewayUrl + 'warehouses/');
+  }
+
 }
 
 

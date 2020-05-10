@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {MapService} from '../map/map.service';
 import {TrackorderService} from './trackorder.service';
+import {MapComponent} from '../map/map.component';
 
 interface Order {
-  id: number;
+  order_id: number;
   name: string;
   type: string;
   eta: string;
@@ -20,7 +21,8 @@ interface OrderArray {
   styleUrls: ['./trackorder.component.css']
 })
 export class TrackorderComponent implements OnInit {
-  orders: OrderArray;
+  @ViewChild(MapComponent, {static : false}) map;
+  orders: {};
   showWarehouse = this.trackorderService.getShowWarehouses();
   showDrones = this.trackorderService.getShowDrones();
   showPaths = this.trackorderService.getShowPaths();
@@ -28,6 +30,11 @@ export class TrackorderComponent implements OnInit {
 
   showWarehouseChange(e) {
     this.trackorderService.setShowWarehouses(e.target.checked);
+    if (this.showWarehouse) {
+      this.map.showWarehouses();
+    } else {
+      this.map.hideWarehouses();
+    }
   }
   showDronesChange(e) {
     this.trackorderService.setShowDrones(e.target.checked);
@@ -37,21 +44,20 @@ export class TrackorderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: fetch orders of current customer and update this.orders
-    this.orders = {
-      orders: [
-        {id: 1, name: 'First Order', type: 'Simple Order', eta: moment('25/03/2020, 14:20', 'DD/MM/YYYY, h:mm').fromNow()},
-        {id: 2, name: 'Second Order', type: 'Critical Order', eta: moment('24/03/2020, 15:20', 'DD/MM/YYYY, h:mm').fromNow()},
-      ]
-    };
-
-    // this.trackorderService.getOrders().subscribe(
-    //   data => {
-    //     this.orders = data;
-    //   }
-    // );
+    this.orders = {};
+    this.trackorderService.getOrders().subscribe(
+      data => {
+        console.log({data});
+        this.orders = {orders : data};
+      }
+    );
   }
   track(e) {
-    this.mapService.trackDrones(e);
+    if (e.drone_id === null || e.drone_id === undefined) {
+      alert('Drones is not assigned yet.');
+      return;
+    }
+    this.map.showDronePath(e.drone_id, e.latitude, e.longitude);
+    this.mapService.trackDrones(e.drone_id);
   }
 }
