@@ -2,9 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9929051f-a8ea-4295-bcfd-8a44f048c2de" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logistics/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/logistics/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/warehouse/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/drone/drone_scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/migrations/0002_auto_20200219_1158.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/migrations/0003_auto_20200219_1200.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/migrations/0004_auto_20200220_1253.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/main/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../order/order/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/User_API.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drone/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/drone/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../order/order/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../order/order/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../order/order/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../order/order/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user/user/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../user/user/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../user/user/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +148,7 @@
       <option name="presentableId" value="Default" />
       <updated>1581568205089</updated>
       <workItem from="1582366179293" duration="1082000" />
-      <workItem from="1589112344175" duration="590000" />
+      <workItem from="1589112344175" duration="877000" />
     </task>
     <servers />
   </component>
@@ -127,22 +156,30 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1589112849798">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1589112957330">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589112849798" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1589112849798">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589112957330" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1589112957330">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589112849798" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1589112849797">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589112957330" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1589112957330">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589112849797" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1589112849798">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589112957330" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1589112957330">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589112849798" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589112957330" />
+    <state x="147" y="65" key="MergeDialog" timestamp="1589113209967">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1589113209967" />
+    <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1589113209970">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="481" y="128" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1589113209970" />
     <state x="463" y="144" width="609" height="536" key="find.popup" timestamp="1589112808529">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
