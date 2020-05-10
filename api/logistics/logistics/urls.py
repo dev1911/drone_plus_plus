@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import drone.urls as drone_urls
+from warehouse.views import warehouses
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('warehouses/', warehouses, name='warehouses'),
     path('drone/', include(drone_urls))
 ]

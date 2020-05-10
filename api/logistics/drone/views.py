@@ -18,6 +18,7 @@ import websocket
 
 # reusable functions
 
+ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
 
 def authenticate_api_token(request):
     # checking that this request is from API service
@@ -51,7 +52,8 @@ def authenticate_user_token(user_token):
     return user_token
 
 def notify_gateway(request, drone_id):
-    ws = websocket.create_connection(ws_url+"/drone/"+drone_id+"/track/")
+    print("NOFIFY ...............................")
+    ws = websocket.create_connection(ws_url + str(drone_id) + '/')
     data = {
             'token': TOKEN,
             'id': drone_id
@@ -234,7 +236,13 @@ def change_status(request):
     except:
         pass
     drone.save()
-    notify_gateway(request, drone_id)
+    # notify_gateway(request, drone_id)
+    ws = websocket.WebSocket()
+    ws.connect(ws_url + str(drone_id) + '/')
+    d = {"api_token" : TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
+    ws.send(json.dumps(d))
+    ws.close()
+    del ws
     return Response({"success": status_updated}, status=status.HTTP_200_OK)
 
 @api_view(['PATCH'])
@@ -266,5 +274,11 @@ def change_location(request):
     except:
         return Response({"error": lat_long_missing}, status=status.HTTP_400_BAD_REQUEST)
     drone.save()
-    notify_gateway(request, drone_id)
+    # notify_gateway(request, drone_id)
+    ws = websocket.WebSocket()
+    ws.connect(ws_url + str(drone_id) + '/')
+    d = {"api_token" : TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
+    ws.send(json.dumps(d))
+    ws.close()
+    del ws
     return Response({"success": status_updated}, status=status.HTTP_200_OK)
