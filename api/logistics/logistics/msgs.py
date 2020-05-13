@@ -1,3 +1,5 @@
+import os
+
 TOKEN = "this_is_token"
 unauthorised = "Not authorised to access this service"
 no_user_token = "User token not found in the header."
@@ -18,4 +20,7 @@ status_updated = "Drone status updated successfully."
 
 
 # urls
-ws_url = "ws://127.0.0.1:8000/ws"
+gateway_url = os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103")
+gateway_port = os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002")
+ws_url = "ws://" + gateway_url + ":" + gateway_port + "/ws"
+# ws_url = "ws://127.0.0.1:8000/ws"

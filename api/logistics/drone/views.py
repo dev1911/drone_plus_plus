@@ -20,8 +20,8 @@ from math import sin, cos, sqrt, atan2, radians
 
 # reusable functions
 
-ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
-
+# ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
+ws_url = "ws://" + os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103") + ":" + os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002") + "/ws"
 
 def authenticate_api_token(request):
     # checking that this request is from API service
