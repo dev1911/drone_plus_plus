@@ -7,10 +7,12 @@ class Order(models.Model):
 	latitude = models.FloatField(max_length=20)
 	longitude = models.FloatField(max_length=20)
 	address = models.CharField(unique=False,max_length=500)
+	drone_id = models.IntegerField(null=True, blank=True)
+	order_name = models.CharField(max_length=300, default='Some Order')
 	status = models.CharField(max_length=20 , choices= (("Completed" , "Completed"),
 														("Pending" , "Pending"),
 														("Error" , "Error"),
 														("Ongoing" , "Ongoing")) ,
 														default="Pending")
-	def __str__(self):
-		return str(self.order_id) + "\n" + str(self.user_id )+ "\n" + self.address
+	def _str_(self):
+		return self.order_id + "\n" + self.user_id + "\n" + self.address
