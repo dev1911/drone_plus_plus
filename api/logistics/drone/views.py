@@ -13,12 +13,15 @@ from .serializers import *
 
 import json
 import websocket
+from math import sin, cos, sqrt, atan2, radians
+
 # Create your views here.
 
 
 # reusable functions
 
 ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
+
 
 def authenticate_api_token(request):
     # checking that this request is from API service
@@ -51,13 +54,14 @@ def authenticate_user_token(user_token):
         return None
     return user_token
 
+
 def notify_gateway(request, drone_id):
     print("NOFIFY ...............................")
     ws = websocket.create_connection(ws_url + str(drone_id) + '/')
     data = {
-            'token': TOKEN,
-            'id': drone_id
-        }
+        'token': TOKEN,
+        'id': drone_id
+    }
     try:
         data += {'lat': request.data['latitude']}
         data += {'long': request.data['longitude']}
@@ -78,11 +82,11 @@ def notify_gateway(request, drone_id):
 @permission_classes((AllowAny,))
 def create_drone(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
-        return Response({"error":no_user_token}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": no_user_token}, status=status.HTTP_400_BAD_REQUEST)
     # call user API to get user-id from user_token
     user_id = authenticate_user_token(user_token)
     if user_id is None:
@@ -92,7 +96,7 @@ def create_drone(request):
         battery = request.data['battery']
     except:
         print("Battery not found in request.")
-        return Response({"error":no_battery}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": no_battery}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
         # check is request has warehouse for the drone
@@ -100,7 +104,7 @@ def create_drone(request):
         # get id of the warehouse
         warehouse_id = Warehouse.objects.get(name=warehouse)
         if not warehouse_id:
-        # if the warehouse does not exist
+            # if the warehouse does not exist
             return Response({"error": invalid_warehouse}, status=status.HTTP_400_BAD_REQUEST)
     except:
         # warehouse is not passed in the request parameters
@@ -115,12 +119,13 @@ def create_drone(request):
     drone.save()
     return Response({"success": drone_created}, status=status.HTTP_201_CREATED)
 
+
 # /drone/list
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def list_drones(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -140,20 +145,21 @@ def list_drones(request):
         if warehouse:
             drones = drones.filter(warehouse=warehouse.id)
         else:
-            return Response({"error":invalid_warehouse},status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": invalid_warehouse}, status=status.HTTP_400_BAD_REQUEST)
     if 'status' in request.query_params:
         if request.query_params['status'] in drone_status:
             drones = drones.filter(status=request.query_params['status'])
         else:
-            return Response({"error":invalid_status_choice}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": invalid_status_choice}, status=status.HTTP_400_BAD_REQUEST)
     return Response(DroneSerializer(drones, many=True).data, status=status.HTTP_200_OK)
+
 
 # /drone/info
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def info_drone(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -167,7 +173,7 @@ def info_drone(request):
         drone_id = request.query_params['drone_id']
     except:
         # no drone_id in request
-        return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
     # finding the drone of given ID
     drone = Drone.objects.get(id=drone_id)
     if drone:
@@ -175,14 +181,15 @@ def info_drone(request):
         return Response(DroneSerializer(drone, many=False).data, status=status.HTTP_200_OK)
     else:
         # drone of given ID does not exist
-        return Response({"error":invalid_drone_id}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": invalid_drone_id}, status=status.HTTP_404_NOT_FOUND)
+
 
 # /drone/current-battery
 @api_view(['GET'])
 @permission_classes((AllowAny,))
 def current_battery_drone(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -194,19 +201,20 @@ def current_battery_drone(request):
     try:
         drone_id = request.query_params['drone_id']
     except:
-        return Response({"error":no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": no_drone_id}, status=status.HTTP_400_BAD_REQUEST)
     drone = Drone.objects.get(id=drone_id)
     if drone:
         return Response(DroneBatterySerializer(drone, many=False).data, status=status.HTTP_200_OK)
     else:
         return Response({"error": invalid_drone_id}, status=status.HTTP_400_BAD_REQUEST)
 
+
 # /drone/change-status
 @api_view(['PATCH'])
 @permission_classes((AllowAny,))
 def change_status(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -225,9 +233,9 @@ def change_status(request):
     try:
         new_status = request.data['status']
     except:
-        return Response({"error":no_drone_status}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": no_drone_status}, status=status.HTTP_400_BAD_REQUEST)
     if new_status not in drone_status:
-        return Response({"error":invalid_status_choice}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": invalid_status_choice}, status=status.HTTP_400_BAD_REQUEST)
     drone.status = new_status
     try:
         if request.data['latitude'] and request.data['longitude']:
@@ -239,17 +247,18 @@ def change_status(request):
     # notify_gateway(request, drone_id)
     ws = websocket.WebSocket()
     ws.connect(ws_url + str(drone_id) + '/')
-    d = {"api_token" : TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
+    d = {"api_token": TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
     ws.send(json.dumps(d))
     ws.close()
     del ws
     return Response({"success": status_updated}, status=status.HTTP_200_OK)
 
+
 @api_view(['PATCH'])
 @permission_classes((AllowAny,))
 def change_location(request):
     if not authenticate_api_token(request):
-        return Response({"error":unauthorised}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
     # checking whether the user token is there in request
     user_token = get_user_token(request)
     if not user_token:
@@ -277,8 +286,73 @@ def change_location(request):
     # notify_gateway(request, drone_id)
     ws = websocket.WebSocket()
     ws.connect(ws_url + str(drone_id) + '/')
-    d = {"api_token" : TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
+    d = {"api_token": TOKEN, "lat": request.data['latitude'], "long": request.data['longitude']}
     ws.send(json.dumps(d))
     ws.close()
     del ws
     return Response({"success": status_updated}, status=status.HTTP_200_OK)
+
+
+def d(lat1, long1, lat2, long2):
+    R = 6373.0
+    lat1 = radians(lat1)
+    long1 = radians(long1)
+    lat2 = radians(lat2)
+    long2 = radians(long2)
+    dlon = long2 - long1
+    dlat = lat2 - lat1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
+
+
+def get_nearest_warehouse(latitude, longitude):
+    warehouses = Warehouse.objects.all()
+    min_distance = 10000000000
+    closest_warehouse = None
+    for warehouse in warehouses:
+        distance = d(latitude, longitude, warehouse.latitude, warehouse.longitude)
+        if (distance < min_distance):
+            min_distance = distance
+            closest_warehouse = warehouse
+    return closest_warehouse, min_distance
+
+
+def fifo(latitude, longitude):
+    warehouse, min_distance = get_nearest_warehouse(latitude, longitude)
+    warehouse_drones = Drone.objects.all().filter(warehouse=warehouse, status="Idle", battery__gte=min_distance)
+    if (len(warehouse_drones) <= 0):
+        return Response({"error": "Cannot schedule deliveryr right now."}, status=status.HTTP_400_BAD_REQUEST)
+    drone = warehouse_drones[0]
+    drone.status = "Delivering"
+    drone.latitude = warehouse.latitude
+    drone.longitude = warehouse.longitude
+    drone.save()
+    return Response({"success": "Done", "drone_id": drone.id}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def schedule(request):
+    if not authenticate_user_token(request):
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
+    try:
+        latitude = request.data['latitude']
+        longitude = request.data['longitude']
+        # print("did schedule")
+        return fifo(float(latitude), float(longitude))
+    except:
+        print("could not schedule")
+        return Response({'error', 'Failed to schedule delivery. Try again!'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def path_(request):
+    if not authenticate_user_token(request):
+        return Response({"error": unauthorised}, status=status.HTTP_403_FORBIDDEN)
+    try:
+        warehouse, d = get_nearest_warehouse(float(request.data['lat']), float(request.data['long']))
+        return Response({'lat': warehouse.latitude, 'long': warehouse.longitude}, status=status.HTTP_200_OK)
+    except:
+        return Response({'error': 'Something went wrong. Try again!'}, status=status.HTTP_400_BAD_REQUEST)
