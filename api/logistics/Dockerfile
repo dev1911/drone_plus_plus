@@ -9,7 +9,7 @@ RUN pip install channels
 RUN pip install django-cors-headers
 RUN pip install requests
 RUN pip install psycopg2
-RUN pip install websockets
+RUN pip install websocket
 ADD ./ /code/
 
 CMD ["python3" , "logistics/manage.py" , "runserver" , "0.0.0.0:8000"]
