@@ -16,7 +16,9 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem('user-token') != null) {
       this.authenticated = this.loginService.isLoggedIn();
       if (this.authenticated) {
-        this.user = this.loginService.getUserInfo();
+       this.loginService.getUserInfo().subscribe(data => {
+         this.user = data['username'];
+       });
       }
     }
   }

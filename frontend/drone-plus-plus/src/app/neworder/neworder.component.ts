@@ -40,7 +40,8 @@ export class NeworderComponent implements OnInit {
       alert('Order placed successfully.');
       this.router.navigate(['/']);
     }, error => {
-      this.error = 'Failed to place order. Try again.';
+      console.error(error)
+      this.error = error.error.error;
     })
     ;
   }

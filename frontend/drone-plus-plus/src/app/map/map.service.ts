@@ -13,23 +13,17 @@ export class MapService {
   logisticsUrl = 'http://127.0.0.1:8002';
   constructor(private httpClient: HttpClient) { }
   findPath(destLat, destLong, srcLatDef?, srcLongDef?) {
-    const srcLat = srcLatDef || 19.1136;
-    const srcLong = srcLongDef || 72.8697;
-    // // calling Logistics API to find nearest warehouse
-    // const res = this.httpClient.get(
-    //   `${this.logisticsUrl}/warehouse/find/?destLat=${destLat}&destLong=${destLong}`
-    // );
-    // res.subscribe((data) => {
-    //   srcLat = data['warehouses'][0]['srcLat'];
-    //   srcLong = data['warehouses'][0]['srcLong'];
-    // },
-    //   (error) => {
-    //     console.log('error ', error);
-    //   });
+    const srcLat = srcLatDef || 0;
+    const srcLong = srcLongDef || 0;
+    return this.httpClient.post(`${this.gatewayUrl}path/`, {lat: destLat, long: destLong});
+  }
+
+  tomtom(srcLat, srcLong, destLat, destLong) {
     return this.httpClient.get(
-        `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde7` // 7
+      `${this.apiUrl}${srcLat},${srcLong}:${destLat},${destLong}/json?avoid=unpavedRoads&key=lJiiu1BLec33l0iGSETxeotI8qhJzde7` // 7
     );
   }
+
   trackDrones(droneId) {
     if (this.socket) {
       this.socket.close();

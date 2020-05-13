@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('user-token', data['token']);
       this.subError = '';
       this.router.navigate(['']);
+      window.location.reload();
     },
     error => {
       console.log('error', error);

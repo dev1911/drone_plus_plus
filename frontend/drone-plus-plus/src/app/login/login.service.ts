@@ -12,7 +12,7 @@ export class LoginService {
   apiURL = 'http://127.0.0.1:8000/';
   constructor(private http: HttpClient) { }
   loginNewUser(userData) {
-    return this.http.post(`${this.apiURL}accounts/login/`, userData);
+    return this.http.post(`${this.apiURL}login/`, userData);
   }
 
   isLoggedIn(): boolean {
@@ -23,13 +23,9 @@ export class LoginService {
     return false;
   }
 
-  getUserInfo(): string {
+  getUserInfo() {
     // TODO: call API to get user name and cache it for later requests
-    let username: string;
-    this.http.get(this.apiURL + 'user_details/').subscribe( data => {
-      username = data['username'];
-    });
-    return username;
+    return this.http.get(this.apiURL + 'user_details/');
   }
 
   logout() {

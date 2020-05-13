@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MapService} from './map.service';
 import {TrackorderService} from '../trackorder/trackorder.service';
+import {typeIsOrHasBaseType} from 'tslint/lib/language/typeUtils';
 declare let L;
 declare let tomtom: any;
 
@@ -58,19 +59,27 @@ export class MapComponent implements OnInit {
         // update lat and long in new order component
         this.locationChange.emit({lat: this.lat, long: this.long});
         const response = this.mapService.findPath(this.lat, this.long);
-        response.subscribe((data) => {
-          const points = data['routes'][0].legs[0].points;
-          const wayPoints = new Array();
-          for(let i = 0; i < points.length; ++i) {
-            wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
-          }
-          if (path !== undefined) {
-            path.remove();
-          }
-          path = L.polyline(wayPoints, {
-            color: 'red',
-            weight: 3
-          }).addTo(this.map);
+        response.subscribe(data => {
+          console.log(data);
+          const srcLat = data['lat'];
+          const srcLong = data['long'];
+          this.mapService.tomtom(srcLat, srcLong, this.lat, this.long).subscribe((data) => {
+            console.log(data);
+            const points = data['routes'][0].legs[0].points;
+            const wayPoints = new Array();
+            for(let i = 0; i < points.length; ++i) {
+              wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
+            }
+            if (path !== undefined) {
+              path.remove();
+            }
+            path = L.polyline(wayPoints, {
+              color: 'red',
+              weight: 3
+            }).addTo(this.map);
+          });
+        }, error => {
+          console.error(error);
         });
       });
     } else if (this.type === 'track') {
@@ -106,7 +115,8 @@ export class MapComponent implements OnInit {
 
   showWarehouses() {
     this.mapService.getWarehouses().subscribe( data => {
-      data.forEach(w => {
+      console.log(data);
+      data['warehouse'].forEach(w => {
         const marker = new L.marker([w.latitude, w.longitude], {icon: this.warehouseIcon})
           .bindTooltip(w.name, {permanent: false, direction: 'top'})
           .addTo(this.map);
@@ -125,19 +135,24 @@ export class MapComponent implements OnInit {
     if (this.dronePath !== undefined) {
       this.map.removeLayer(this.dronePath);
     }
-    this.mapService.findPath(destLat, destLong, this.lat, this.long).subscribe((data) => {
-      const points = data['routes'][0].legs[0].points;
-      const wayPoints = new Array();
-      for(let i = 0; i < points.length; ++i) {
-        wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
-      }
-      if (this.dronePath !== undefined) {
-        this.dronePath.remove();
-      }
-      this.dronePath = L.polyline(wayPoints, {
-        color: 'red',
-        weight: 3
-      }).addTo(this.map);
+    this.mapService.findPath(destLat, destLong).subscribe(d => {
+      const srcLat = d['lat'];
+      const srcLong = d['long']
+      this.mapService.tomtom(destLat, destLong, srcLat, srcLong).subscribe((data) => {
+        console.log(data);
+        const points = data['routes'][0].legs[0].points;
+        const wayPoints = new Array();
+        for(let i = 0; i < points.length; ++i) {
+          wayPoints.push(L.latLng(points[i].latitude, points[i].longitude));
+        }
+        if (this.dronePath !== undefined) {
+          this.dronePath.remove();
+        }
+        this.dronePath = L.polyline(wayPoints, {
+          color: 'red',
+          weight: 3
+        }).addTo(this.map);
+      });
     });
   }
 }

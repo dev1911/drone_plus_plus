@@ -8,5 +8,5 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
   registerNewUser(userData): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/accounts/register/', userData); }
+    return this.http.post('http://127.0.0.1:8000/register/', userData); }
 }
