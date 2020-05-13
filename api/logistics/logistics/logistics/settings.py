@@ -85,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv("POSTGRES_DB",'logistics'),
-        'USER': os.getenv("POSTGRES_USER","admin")
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin")
-        'HOST': os.getenv("POSTGRES_LOGISTIC_SERVICE_HOST","127.0.0.1")
-        "PORT":os.getenv("POSTGRES_LOGISTIC_SERVICE_PORT" , "3306")
+        'USER': os.getenv("POSTGRES_USER","admin"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin"),
+        'HOST': os.getenv("POSTGRES_LOGISTIC_SERVICE_HOST","127.0.0.1"),
+        "PORT":os.getenv("POSTGRES_LOGISTIC_SERVICE_PORT" , "5342"),
     }
 }
 
