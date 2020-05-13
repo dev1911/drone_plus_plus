@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: logistics-deployment
+    labels: 
+        app: web
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: web
+            micro-service: logistics
+    template:
+      metadata:
+          name: logistics
+          labels:
+              app: web
+              micro-service: logistics
+      spec:
+          containers:
+              - name: logistics-django-app
+                image: docker.io/dev1911/drone_plus_plus_logistics:latest
+                ports:
+                  - containerPort: 8000
+                env:
+                  - name: POSTGRES_USER
+                    value: admin
+                  - name: POSTGRES_PASSWORD
+                    value: admin
+                  - name: POSTGRES_DB
+                    value: logistics
