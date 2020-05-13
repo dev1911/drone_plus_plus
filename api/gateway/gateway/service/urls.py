@@ -21,4 +21,5 @@ urlpatterns = [
     path('change_location/', change_location, name='change_location'),
     path('current_battery/', current_battery, name='current_battery'),
     path('warehouses/', warehouses, name='warehouses'),
+    path('path/', path_, name='path')
 ]

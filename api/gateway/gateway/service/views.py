@@ -18,7 +18,9 @@ header = {"Api-Token": TOKEN}
 def login(request):
 	header = {'Authorization':request.META.get("HTTP_AUTHORIZATION",""),"Api-Token":TOKEN}
 	response = requests.post(user_service + "accounts/login/", data=request.data, headers=header)
-	return Response(response.json())
+	return Response(response.json(),
+    	status=response.status_code,
+    	content_type=response.headers['Content-Type'])
 
 # /register
 @api_view(['POST',])
@@ -26,7 +28,7 @@ def login(request):
 def register(request):
 	header = {"Api-Token":TOKEN}
 	response = requests.post(user_service + "accounts/register/", data=request.data, headers=header)
-	return Response(response.json())
+	return Response(response.json(), status=response.status_code)
 
 @api_view(['GET',])
 @permission_classes((AllowAny,))
@@ -58,7 +60,7 @@ def all_users(request):
 def logout(request):
 	header = {'Authorization':request.META.get("HTTP_AUTHORIZATION",""),"Api-Token":TOKEN}
 	response = requests.post(user_service + "accounts/logout/", data=request.data, headers=header)
-	return Response(response.json())
+	return Response(response.json(), status=response.status_code)
 
 @api_view(['POST',])
 @permission_classes((AllowAny,))
@@ -75,10 +77,16 @@ def create_order(request):
 	print(request.data)
 	user_id = requests.get(user_service + "accounts/user_id",data=request.data, headers= header)
 	user = user_id.json()['user_id']
-	request.data.user_id = user
-	order = requests.post(order_service + "api/order/",data={"user_id":user,'latitude':request.data['latitude'],'longitude':request.data['longitude'],'address':request.data['address'] ,'status':request.data['status']},headers=header)
-	print(request.data.user_id)
-	return Response(order.json())
+	request.data['user_id'] = user
+	response = requests.post(order_service + "api/order/",data={"user_id":user,'latitude':request.data['latitude'],'longitude':request.data['longitude'],'address':request.data['address'] ,'status':request.data['status'], 'order_name': request.data['orderName']},headers=header)
+	try:
+		drone = requests.post(logistic_service + "drone/schedule/", data={'latitude': request.data['latitude'], 'longitude': request.data['longitude']}, headers=header)
+		x = requests.patch(order_service + "api/order/" + str(response.json()["order_id"]) + "/", data={"status":"Ongoing", "drone_id":drone.json()["drone_id"]})
+		return Response(response.json(),
+    		status=response.status_code,
+    		content_type=response.headers['Content-Type'])
+	except:
+		return Response({"error":"All drones are busy. Try again later."}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
 @permission_classes((AllowAny,))
@@ -182,4 +190,11 @@ def warehouses(request):
 	# TODO: validate user
 	response = requests.get(logistic_service + "warehouses", headers=header)
 	print(response.json())
-	return Response(response.json())
+	return Response({"warehouse": response.json()})
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def path_(request):
+	response = requests.post(logistic_service + "drone/path/", data=request.data, headers=header)
+	print(response.json())
+	return Response(response.json(), status=response.status_code)
