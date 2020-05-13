@@ -25,7 +25,7 @@ SECRET_KEY = '6@qu#fr823*&^ebyvzyrqlh9s%_d9mi-onfv%lq-%j0=d(1ro7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'order.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'order',
+        'USER': os.getenv("MYSQL_USER" ,"admin"),
+        'PASSWORD': os.getenv("MYSQL_PASSWORD" , "admin"),
+        'HOST': os.getenv("MYSQL_SERVICE_SERVICE_HOST"),
+        'PORT': os.getenv("MYSQL_SERVICE_SERVICE_PORT" , 8001),
     }
 }
 
