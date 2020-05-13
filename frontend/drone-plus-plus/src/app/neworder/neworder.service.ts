@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class NewOrderService {
-  gatewayUrl = 'http://127.0.0.1:8000';
+  gatewayUrl = 'http://192.168.99.103:30002';
   constructor(private http: HttpClient) { }
 
   placeOrder(orderData) {

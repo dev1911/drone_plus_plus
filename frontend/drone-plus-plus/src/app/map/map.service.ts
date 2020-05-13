@@ -8,9 +8,9 @@ export class MapService {
   socket: WebSocket = null;
   locationChange = new EventEmitter();
   apiUrl = 'https://api.tomtom.com/routing/1/calculateRoute/';
-  socketUrl = 'ws://127.0.0.1:8000/ws/drone/track/';
-  gatewayUrl = 'http://127.0.0.1:8000/';
-  logisticsUrl = 'http://127.0.0.1:8002';
+  socketUrl = 'ws://192.168.99.103:30002/ws/drone/track/';
+  gatewayUrl = 'http://192.168.99.103:30002/';
+  logisticsUrl = 'http://192.168.99.103:30003';
   constructor(private httpClient: HttpClient) { }
   findPath(destLat, destLong, srcLatDef?, srcLongDef?) {
     const srcLat = srcLatDef || 0;
