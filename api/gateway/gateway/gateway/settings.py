@@ -92,7 +92,7 @@ DATABASES = {
 CHANNEL_LAYERS = {
     "default": {
         "CONFIG": {
-            "hosts": [('localhost','6379')],
+            "hosts": [(os.getenv("REDIS_SERVICE_SERVICE_HOST" , "127.0.0.1"),os.getenv("REDIS_SERVICE_SERVICE_PORT" , 6379))],
         },
         "BACKEND": "channels_redis.core.RedisChannelLayer",
     },
