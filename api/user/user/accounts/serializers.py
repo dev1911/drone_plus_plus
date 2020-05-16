@@ -24,3 +24,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		return account
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = User
+		fields = ['username','user_type']
+
+

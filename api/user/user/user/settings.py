@@ -26,6 +26,7 @@ SECRET_KEY = '2@##7r@g-1n#y7z^cg(0r1$%*ef)%9vnx2#km36jq7y$ht0apo'
 
 DEBUG = os.getenv("DEBUG", True)
 
+
 ALLOWED_HOSTS = ['*']
 
 
