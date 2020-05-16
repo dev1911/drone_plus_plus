@@ -21,7 +21,7 @@ from math import sin, cos, sqrt, atan2, radians
 # reusable functions
 
 # ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
-ws_url = "ws://" + os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103") + ":" + os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002") + "/ws"
+ws_url = "ws://" + os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103") + ":" + os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002") + "/ws/drone/track/"
 
 def authenticate_api_token(request):
     # checking that this request is from API service
@@ -56,7 +56,6 @@ def authenticate_user_token(user_token):
 
 
 def notify_gateway(request, drone_id):
-    print("NOFIFY ...............................")
     ws = websocket.create_connection(ws_url + str(drone_id) + '/')
     data = {
         'token': TOKEN,
@@ -95,7 +94,6 @@ def create_drone(request):
     try:
         battery = request.data['battery']
     except:
-        print("Battery not found in request.")
         return Response({"error": no_battery}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
@@ -339,10 +337,8 @@ def schedule(request):
     try:
         latitude = request.data['latitude']
         longitude = request.data['longitude']
-        # print("did schedule")
         return fifo(float(latitude), float(longitude))
     except:
-        print("could not schedule")
         return Response({'error', 'Failed to schedule delivery. Try again!'}, status=status.HTTP_400_BAD_REQUEST)
 
 
