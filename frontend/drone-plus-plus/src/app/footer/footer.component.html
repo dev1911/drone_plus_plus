@@ -1,0 +1,45 @@
+<footer>
+  <br/><br/><br/><br/>
+  <div class="main-footer">
+    <div class="column-small">
+      <img src="/assets/img/logo.svg" class="logo">
+      <p id="logo-text">Drone++</p>
+    </div>
+    <div class="column-med">
+      <ul>
+        <li>About</li>
+        <li>Careers</li>
+        <li>Services</li>
+        <li>Team</li>
+        <li>Blog</li>
+        <li>Research</li>
+      </ul>
+    </div>
+    <div class="column">
+      <ul>
+        <li>Contact Us</li>
+        <li>Mail: contact@droneplusplus.com</li>
+        <li>Call: +91 1234567890</li>
+        <li>Address: Office 12, SP-TBI,<br/>Andheri(W), Mumbai</li>
+      </ul>
+    </div>
+    <div class="column-l">
+      <ul>
+        <li><div>Subscribe to our newsletter</div></li>
+        <li style="margin-top: 10px!important;">
+          <div class="float-container" style="background: whitesmoke!important; min-width: 35%!important;">
+          <label for="emailField" style="color:#777777!important;">Email</label>
+          <input id = "emailField" class="float-field"
+                 [(ngModel)]="email"
+                 type="text" name="emailField"
+                 style="background: whitesmoke!important;"
+                 #emailField required>
+          </div>
+        </li>
+        <li><button id="sub-btn" (click)="sub()" >Submit</button></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
