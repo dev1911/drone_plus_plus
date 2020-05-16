@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: postgres
+    micro-service: user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+      micro-service: user
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        app: postgres
+        micro-service: user
+        type: database
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+          - name: POSTGRES_USER
+            value: admin
+          - name: POSTGRES_PASSWORD
+            value: admin
+          - name: POSTGRES_DB
+            value: userdb
+          volumeMounts:
+          - name: postgres-pv
+            mountPath: var/lib/postgresql/data
+      volumes:
+      - name: postgres-pv
+        persistentVolumeClaim:
+            claimName: postgres-pvc

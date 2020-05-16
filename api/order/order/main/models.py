@@ -14,5 +14,6 @@ class Order(models.Model):
 														("Error" , "Error"),
 														("Ongoing" , "Ongoing")) ,
 														default="Pending")
+  
 	def _str_(self):
 		return self.order_id + "\n" + self.user_id + "\n" + self.address

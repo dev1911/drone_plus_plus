@@ -28,7 +28,7 @@ def authenticate_api_token(request):
 		return True
 	else:
 		return False
-		
+
 # /accounts/register/
 @api_view(['POST',])
 def registration_view(request):
@@ -102,6 +102,7 @@ def disable_user(request):
 		current_user.is_active = False
 		current_user.save()
 		return Response({"success":"User disabled Successfully"},content_type='application/json',status=200)
+
 	except:
 		return Response({'failure':'User Not available'},content_type='application/json',status=400)
 
@@ -156,3 +157,4 @@ class Login_view(ObtainAuthToken):
 			return Response({'token': token.key,'user_id': user.pk,},content_type='application/json',status=200)
 		else:
 			return Response({'failure':'Credentials not valid'},content_type='application/json',status=400)
+

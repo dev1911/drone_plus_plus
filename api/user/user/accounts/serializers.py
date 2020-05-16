@@ -23,6 +23,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		account.save()
 		return account
 
+
 class UserSerializer(serializers.ModelSerializer):
 
 	class Meta:
