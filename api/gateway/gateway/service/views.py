@@ -77,7 +77,7 @@ def create_order(request):
 	print(request.data)
 	user_id = requests.get(user_service + "accounts/user_id",data=request.data, headers= header)
 	user = user_id.json()['user_id']
-	request.data.user_id = user
+	# request.data.user_id = user
 	response = requests.post(order_service + "api/order/",data={"user_id":user,'latitude':request.data['latitude'],'longitude':request.data['longitude'],'address':request.data['address'] ,'status':request.data['status'], 'order_name': request.data['orderName']},headers=header)
 	try:
 		drone = requests.post(logistic_service + "drone/schedule/", data={'latitude': request.data['latitude'], 'longitude': request.data['longitude']}, headers=header)
