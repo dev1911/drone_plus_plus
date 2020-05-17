@@ -6,4 +6,9 @@ The application uses a microservice architecture with three main services:
 * Logistics :- Main Purpose of this service is scheduling of drones according to the location of order and warehouse.
 
 For the purpose of communication between the frontend(client) and the services(server),we have an API Gateway.Since it's a microservice architecture the three services have independent databases.Websockets are used for real time updates to be shown from the server to the client.
+
+The Technology Stack used in the application is:
+1. Frontend : Angular 8
+2. User,Order,Logistics Service and API Gateway : Django Rest Framework
+3. Deployment : Kubernetes
 ![Image description](https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg)
