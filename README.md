@@ -28,5 +28,9 @@ The code structure is as follows:
     3. logistics(logistics deployments)
     4. gateway (gateway deployments)
   
+Databases:
+* User Service : Postgres
+* Order Service : MySQL
+* Logistics Service : Postgres
  
 ![Image description](https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg)
