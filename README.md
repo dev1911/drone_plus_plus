@@ -11,4 +11,6 @@ The Technology Stack used in the application is:
 1. Frontend : Angular 8
 2. User,Order,Logistics Service and API Gateway : Django Rest Framework
 3. Deployment : Kubernetes
+
+Redis is used for showing real time tracking of drones to the frontend.
 ![Image description](https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg)
