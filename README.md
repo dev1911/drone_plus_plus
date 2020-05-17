@@ -16,17 +16,17 @@ Redis is used for showing real time tracking of drones to the frontend.
 
 The code structure is as follows:
 * api
-  1.user (user service)
-  2.order (order service)
-  3.logistics (logistics service)
-  4.gateway (API Gateway)
+  1. user (user service)
+  2. order (order service)
+  3. logistics (logistics service)
+  4. gateway (API Gateway)
 * frontend
-    1.drone_plus_plus (frontend code)
+    1. drone_plus_plus (frontend code)
 * deployments
-    1.user (user deployments)
-    2.order (order deployments)
-    3.logistics(logistics deployments)
-    4.gateway (gateway deployments)
+    1. user (user deployments)
+    2. order (order deployments)
+    3. logistics(logistics deployments)
+    4. gateway (gateway deployments)
   
  
 ![Image description](https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg)
