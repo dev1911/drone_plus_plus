@@ -15,14 +15,14 @@ The Technology Stack used in the application is:
 Redis is used for showing real time tracking of drones to the frontend.
 
 The code structure is as follows:
-1.api
+* api
     1.user (user service)
     2.order (order service)
     3.logistics (logistics service)
     4.gateway (API Gateway)
-2.frontend
+* frontend
     1.drone_plus_plus (frontend code)
-3.deployments
+* deployments
     1.user (user deployments)
     2.order (order deployments)
     3.logistics(logistics deployments)
