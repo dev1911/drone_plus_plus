@@ -1,5 +1,7 @@
 # Drone_plus_plus
 
+Drone-based logistics is a very hot topic in research and has the potential to change the future of logistics and e-commerce. The project focuses on providing an interface through which a logistics operator can track the drones in motion. The proposed system is a Web App through which customers can place orders. Once an order is placed, the route planning algorithm will select a drone to service the needs based on factors like distance, battery level left, nearest charging station, etc. Through a map, the operator can track the real-time location of the drones in motion. The operator can see visualizations based on statistics of each drone, such as time spent flying. As an extra feature, we also intend to consider the altitude of obstacles in the path, like buildings, trees, etc. 
+
 The application uses a microservice architecture with three main services:
 * User :- Used for registering new users,authentication purposes,login,logout and getting user details.
 * Order :- Used for creating new orders.
