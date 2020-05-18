@@ -8,7 +8,7 @@ Drone-based logistics is a very hot topic in research and has the potential to c
 3. Interactive visualizations of the status of drones.
 4. Placing an order to be serviced by drones.
 
-
+## Architecture
 The application uses a microservice architecture with three main services:
 * User :- Used for registering new users,authentication purposes,login,logout and getting user details.
 * Order :- Used for creating new orders.
@@ -16,6 +16,7 @@ The application uses a microservice architecture with three main services:
 
 For the purpose of communication between the frontend(client) and the services(server),we have an API Gateway.Since it's a microservice architecture the three services have independent databases.Websockets are used for real time updates to be shown from the server to the client.
 
+## Technology Stack
 The Technology Stack used in the application is:
 1. Frontend : Angular 8
 2. User,Order,Logistics Service and API Gateway : Django Rest Framework
@@ -23,6 +24,7 @@ The Technology Stack used in the application is:
 
 Redis is used for showing real time tracking of drones to the frontend.
 
+## Code Structure
 The code structure is as follows:
 * api
   1. user (user service)
@@ -37,9 +39,11 @@ The code structure is as follows:
     3. logistics(logistics deployments)
     4. gateway (gateway deployments)
   
+## Databases
 Databases:
 * User Service : Postgres
 * Order Service : MySQL
 * Logistics Service : Postgres
  
+## Architecture Diagram
 <img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/architecture-diag.jpg" height="600" width="800">
