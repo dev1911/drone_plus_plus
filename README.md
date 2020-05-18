@@ -33,4 +33,4 @@ Databases:
 * Order Service : MySQL
 * Logistics Service : Postgres
  
-![Image description](https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg)
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/master/documents/architecture.jpg" height="200" width="200">
