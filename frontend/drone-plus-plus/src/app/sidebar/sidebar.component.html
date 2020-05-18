@@ -1,0 +1,10 @@
+<div id="sidebar" #sidebar>
+  <div id="title">Select the order to be tracked</div>
+  <div *ngFor="let order of orders.orders" class="order">
+    <div class="order-name">{{order.order_name}}</div>
+    <button class="track-btn" (click)="trackOrder(order)">Track</button>
+    <div class="order-id">Order ID: {{order.order_id}}</div>
+    <div class="eta"><i>{{order.status}}</i></div>
+    <div>Some other details of order to be shown</div>
+  </div>
+</div>
