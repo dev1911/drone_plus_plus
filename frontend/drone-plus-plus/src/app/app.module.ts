@@ -15,6 +15,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NeworderComponent } from './neworder/neworder.component';
 import { TrackorderComponent } from './trackorder/trackorder.component';
 import {AuthInterceptor} from './login/auth.interceptor';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import {AuthInterceptor} from './login/auth.interceptor';
     SidebarComponent,
     NeworderComponent,
     TrackorderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
