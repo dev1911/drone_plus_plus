@@ -4,8 +4,7 @@ Drone-based logistics is a very hot topic in research and has the potential to c
 
 ## Features:
 1. Real-time tracking of drones.
-2. Interactive visualizations of the status of drones.
-3. Placing an order to be serviced by drones.
+2. Placing an order to be serviced by drones.
 
 ## Architecture
 The application uses a microservice architecture with three main services:
