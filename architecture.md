@@ -5,4 +5,4 @@
 
 <h1>Architecture</h1>
 
-![Image Description](https://github.com/dev1911/drone_plus_plus/blob/gh-pages/docs/architecture-diag.jpg)
+![Image Description](https://github.com/dev1911/drone_plus_plus/blob/gh-pages/docs/architecture-diag.jpg?raw=True)
