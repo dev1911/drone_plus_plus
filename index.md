@@ -1,6 +1,6 @@
 <div class="topnav">
   <a href="architecture.html">Architecture</a>
-  <a href="developer.html">Developers</a>
+  <a href="developers.html">Developers</a>
 </div>
 
 <h1>Drone++</h1>
