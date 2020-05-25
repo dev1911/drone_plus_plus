@@ -19,12 +19,12 @@ def authenticate_api_token(request):
 	# checking that this request is from API service
 	try:
 		token = request.META.get('HTTP_API_TOKEN',"")
-		print(token,TOKEN)
+		# print(token,TOKEN)
 	except:
 		return False
 	if(token == TOKEN):
-		print("AYA")
-		print(token)
+		# print("AYA")
+		# print(token)
 		return True
 	else:
 		return False
@@ -32,9 +32,9 @@ def authenticate_api_token(request):
 # /accounts/register/
 @api_view(['POST',])
 def registration_view(request):
-	print("viewww")
+	# print("viewww")
 	if ((request.method == 'POST') and (authenticate_api_token(request))):
-		print("idhar ayaa")
+		# print("idhar ayaa")
 		serializer = RegistrationSerializer(data=request.data)
 		data = {}
 		if serializer.is_valid():
@@ -45,11 +45,11 @@ def registration_view(request):
 			data['user_type'] = account.user_type
 			token = Token.objects.get(user=account).key
 			data['token'] = token
-			return Response({'user_info':data},content_type='application/json',status=200)
+			return Response({'user_info':data},content_type='application/json',status=201)
 		else:
 			data = serializer.errors
 			print(data)
-			return Response({'error':data},content_type='application/json',status=500)
+			return Response({'error':data},content_type='application/json',status=400)
 	else:
 		return Response({'failure':'api authorization token not provided'},content_type='application/json',status=400)
 		
@@ -124,7 +124,7 @@ def user_details(request):
 			user_details = User.objects.get(pk = user_id.pk)
 			return Response({'success':'successful','username':user_details.username,'user_type':user_details.user_type},content_type='application/json',status=200)
 		except:
-			return Response({'failure':'User Not available'},content_type='application/json',status=400)
+			return Response({'failure':'User Not available'},content_type='application/json',status=401)
 	else:
 		return Response({'failure':'api authorization token not provided'},content_type='application/json',status=400)
 
@@ -143,7 +143,7 @@ def all_users(request):
 				qs = UserSerializer(user,many=True)
 				return Response({'success':'successful','all_users':qs.data},content_type='application/json',status=200)
 		except:
-			return Response({'failure':'User not available'},content_type='application/json',status=400)
+			return Response({'failure':'User not available'},content_type='application/json',status=401)
 	else:
 		return Response({'failure':'Api authorization token not provided'},content_type='application/json',status=400)
 
@@ -153,7 +153,7 @@ class Login_view(ObtainAuthToken):
 		if ((serializer.is_valid()) and (authenticate_api_token(request))):
 			user = serializer.validated_data['user']
 			token, created = Token.objects.get_or_create(user=user)
-			print("TOken",request.META.get("HTTP_AUTHORIZATION",""))
+			print("Token",request.META.get("HTTP_AUTHORIZATION",""))
 			return Response({'token': token.key,'user_id': user.pk,},content_type='application/json',status=200)
 		else:
 			return Response({'failure':'Credentials not valid'},content_type='application/json',status=400)

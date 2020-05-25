@@ -20,7 +20,9 @@ status_updated = "Drone status updated successfully."
 
 
 # urls
-gateway_url = os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103")
-gateway_port = os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002")
+# gateway_url = os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103")
+# gateway_port = os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002")
+gateway_url = "127.0.0.1"
+gateway_port = "8000"
 ws_url = "ws://" + gateway_url + ":" + gateway_port + "/ws"
 # ws_url = "ws://127.0.0.1:8000/ws"
