@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import sys
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -81,16 +82,24 @@ WSGI_APPLICATION = 'logistics.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("POSTGRES_DB",'logistics'),
-        'USER': os.getenv("POSTGRES_USER","admin"),
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin"),
-        'HOST': os.getenv("POSTGRES_LOGISTIC_SERVICE_HOST","127.0.0.1"),
-        "PORT":os.getenv("POSTGRES_LOGISTIC_SERVICE_PORT" , "5342"),
+if sys.argv[1] == "test":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }    
+else:    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv("POSTGRES_DB",'logistics'),
+            'USER': os.getenv("POSTGRES_USER","admin"),
+            'PASSWORD': os.getenv("POSTGRES_PASSWORD" , "admin"),
+            'HOST': os.getenv("POSTGRES_LOGISTIC_SERVICE_HOST","127.0.0.1"),
+            "PORT":os.getenv("POSTGRES_LOGISTIC_SERVICE_PORT" , "5342"),
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

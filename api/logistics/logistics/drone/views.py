@@ -14,6 +14,7 @@ from .serializers import *
 import json
 import websocket
 from math import sin, cos, sqrt, atan2, radians
+import sys
 
 # Create your views here.
 
@@ -21,7 +22,10 @@ from math import sin, cos, sqrt, atan2, radians
 # reusable functions
 
 # ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
-ws_url = "ws://" + os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103") + ":" + os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002") + "/ws/drone/track/"
+if sys.argv[1] == "test":
+    ws_url = "ws://127.0.0.1:8000/ws/drone/track/"
+else:    
+    ws_url = "ws://" + os.getenv("GATEWAY_SERVICE_SERVICE_HOST" , "192.168.99.103") + ":" + os.getenv("GATEWAY_SERVICE_SERVICE_PORT" ,"30002") + "/ws/drone/track/"
 
 def authenticate_api_token(request):
     # checking that this request is from API service
