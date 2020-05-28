@@ -1,0 +1,7 @@
+django
+django_rest_framework
+channels
+django-cors-headers
+requests
+psycopg2
+websocket_client

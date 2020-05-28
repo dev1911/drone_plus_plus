@@ -131,3 +131,5 @@ dmypy.json
 .pyre/
 node_modules
 redis-5.0.8
+*.exe
+go.sum

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import sys
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -74,17 +74,24 @@ WSGI_APPLICATION = 'order.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'order',
-        'USER': os.getenv("MYSQL_USER" ,"admin"),
-        'PASSWORD': os.getenv("MYSQL_PASSWORD" , "admin"),
-        'HOST': os.getenv("MYSQL_SERVICE_SERVICE_HOST"),
-        'PORT': os.getenv("MYSQL_SERVICE_SERVICE_PORT" , 8001),
+if sys.argv[1]=="test":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'order',
+            'USER': os.getenv("MYSQL_USER" ,"admin"),
+            'PASSWORD': os.getenv("MYSQL_PASSWORD" , "admin"),
+            'HOST': os.getenv("MYSQL_SERVICE_SERVICE_HOST"),
+            'PORT': os.getenv("MYSQL_SERVICE_SERVICE_PORT" , 8001),
+        }
+    }
 
 
 # Password validation
