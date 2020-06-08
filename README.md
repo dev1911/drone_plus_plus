@@ -32,5 +32,16 @@ Databases:
 * User Service : Postgres
 * Order Service : MySQL
 * Logistics Service : Postgres
+
+Architecture Diagram
  
 <img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/architecture.jpg" height="600" width="800">
+
+Screenshots of the Application
+
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/3.png" height="800" width="600">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/4.png" height="800" width="600">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/5.png" height="800" width="600">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/7.png" height="800" width="600">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/2.png" height="800" width="600">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/6.png" height="800" width="600">
