@@ -49,7 +49,7 @@ Databases:
 ## Screenshots of the Application
 
 <img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/3.png" height="400" width="600">
-![](drone.gif)
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/drone.gif">
 
 
 
