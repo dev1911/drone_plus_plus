@@ -46,9 +46,8 @@ Databases:
 ## Architecture Diagram
 <img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/architecture-diag.jpg" height="600" width="800">
 
-## Screenshots of the Application
+## Demo of the Application
 
-<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/3.png" height="400" width="600">
 <img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/drone.gif">
 
 
