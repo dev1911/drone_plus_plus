@@ -44,11 +44,11 @@ Databases:
 * Logistics Service : Postgres
 
 ## Architecture Diagram
-<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/architecture-diag.jpg" height="600" width="800">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/master/docs/architecture-diag.jpg" height="600" width="800">
 
 ## Demo of the Application
 
-<img src = "https://github.com/dev1911/drone_plus_plus/blob/documentation/docs/drone.gif">
+<img src = "https://github.com/dev1911/drone_plus_plus/blob/master/docs/drone.gif">
 
 
 
