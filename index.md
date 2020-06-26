@@ -1,6 +1,8 @@
 <div class="topnav">
   <a href="architecture.html">Architecture</a>
+  <a href="demo.html">Demo of Application</a>
   <a href="developers.html">Developers</a>
+  
 </div>
 
 <h1>Drone++</h1>
@@ -10,3 +12,11 @@ Drone-based logistics is a very hot topic in research and has the potential to c
 ## Features:
 1. Real-time tracking of drones.
 2. Placing an order to be serviced by drones.
+
+## Technology Stack
+The Technology Stack used in the application is:
+1. Frontend : Angular 8
+2. User,Order,Logistics Service and API Gateway : Django Rest Framework
+3. Deployment : Kubernetes
+
+Redis is used for showing real time tracking of drones to the frontend.
